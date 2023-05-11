@@ -1,15 +1,146 @@
 @charset 'UTF-8';
 
 @use "vendor/normalize";
-@use "abstracts";
-@use "base";
-@use "components";
-@use "layout";
-@use "pages";
-@use "themes";
+// @use "abstracts";
+// @use "base";
+// @use "components";
+// @use "layout";
+// @use "pages";
+// @use "themes";
 
+@import url("https://fonts.googleapis.com/css2?family=Darumadrop+One&family=Kavoon&family=Lilita+One&display=swap");
 
-h1 {
-    color: red !important;
-    background-color: blue;
+html {
+  font-size: 62.5%;
+  // font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  margin: 4rem;
+  background-color: lightgray;
+  background-image: url("../assets/images/bg2.jpg");
+  background-size: cover;
+  background-position: center;
+  // font-size: 2rem;
+  // line-height: 1.5;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    height: 130px;
+    width: 130px;
+  }
+  h1 {
+    position: relative;
+    top: -75px;
+    font-family: "Kavoon";
+    font-size: 4rem;
+    color: lightgray;
+    text-shadow: 1px 1px darkgray;
+  }
+
+  h3 {
+    position: relative;
+    top: -110px;
+    font-size: 1.5rem;
+    color: rgba(255, 167, 0, 255);
+  }
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  // justify-content: flex-start;
+  align-items: center;
+
+  input.searchbar {
+    position: relative;
+    top: -50px;
+    height: 40px;
+    width: 400px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    border: none;
+    font-size: 1.8rem;
+
+    &:focus {
+      outline: 2px solid rgba(255, 167, 0, 255);
+
+      &::placeholder {
+        visibility: hidden;
+      }
+    }
+  }
+
+  fieldset {
+    position: relative;
+    top: -40px;
+    border: none;
+
+    label {
+      margin-right: 10px;
+      font-size: 1.5rem;
+      // font-weight: 700;
+      color: white;
+    }
+
+    input[type="radio"] {
+      position: relative;
+      vertical-align: text-bottom;
+      margin-right: 10px;
+      height: 1.5rem;
+      width: 1.5rem;
+      accent-color: rgba(255, 167, 0, 255);
+
+      &:checked {
+        color: rgba(255, 167, 0, 255);
+      }
+
+      &:checked + label {
+        color: rgba(255, 167, 0, 255);
+      }
+    }
+  }
+
+  button {
+    padding: 1rem;
+    background: rgb(192, 151, 97);
+    box-shadow: inset 0px 1px 0px 0px rgb(172, 135, 87);
+    border: 1px solid rgb(192, 151, 97);
+    outline: none;
+    font-weight: 600;
+    font-size: 2rem;
+    text-shadow: 0 1px 0px rgb(160, 115, 57);
+
+    &:hover {
+      background-color: rgb(168, 128, 75);
+    }
+
+    &:active {
+      background: rgb(139, 104, 58);
+      border-color: rgb(139, 104, 58);
+    }
+  }
+}
+
+.breweries {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 10px;
+}
+
+.brewery {
+  border-radius: 10px;
+  background-color: rgba(255, 167, 0, 255);
+  background-image: url("../assets/images/bg-card.png");
+  background-size: cover;
+  padding: 200px 100px 200px 100px;
 }
