@@ -5,7 +5,7 @@
   "main": "main.js",
   "source": "public/index.html",
   "scripts": {
-    "build:sass": "sass src/scss:public/css",
+    "build:sass": "sass src/sass:public/css",
     "copy:css": "copyfiles -u 1 ./src/css/* public",
     "copy:assets": "copyfiles -u 1 ./src/assets/**/* public",
     "copy:html": "copyfiles -u 1 ./src/*.html public",
@@ -14,7 +14,7 @@
     "watch:assets": "onchange \"/src/assets/**/*\" -- npm run copy:assets",
     "watch:html": "onchange \"src/*.html\" -- npm run copy:html",
     "watch:js": "onchange \"src/*.js\" -- npm run copy:js",
-    "watch:sass": "sass --watch src/scss:public/css",
+    "watch:sass": "sass --watch src/sass:public/css",
     "watch": "npm-run-all --parallel watch:*",
     "dev": "npm-run-all copy --parallel watch",
     "build": "npm-run-all copy:html build:* copy:css"
