@@ -15,14 +15,13 @@
       <h3>Your local brewery search engine</h3>
     </header>
     <main>
-      <div class="wrapper">
         <form name="search">
           <label for="searchbar"></label>
           <input
             type="search"
             class="searchbar"
             name="searchbar"
-            placeholder="Search by"
+            placeholder="Search by:"
             autocomplete="off"
           />
           <fieldset>
@@ -32,20 +31,12 @@
             <label for="city">city</label>
             <input type="radio" id="country" value="country" name="keyword" />
             <label for="country">country</label>
-            <input type="radio" id="distance" value="distance" name="keyword" />
-            <label for="distance">distance</label>
-            <input type="radio" id="type" value="type" name="keyword" />
-            <label for="type"> type</label>
+            <input type="radio" id="any" value="any" name="keyword" />
+            <label for="distance">any keyword</label>
           </fieldset>
-          <!-- <button type="submit">I need a pint!</button> -->
         </form>
-      </div>
-      <div class="breweries">
-        <div class="brewery"></div>
-        <div class="brewery"></div>
-        <div class="brewery"></div>
-      </div>
+        <div class="breweries"></div>
     </main>
   </body>
 </html>
-<script src="../src/js/main.js"></script>
+<script src="../src/js/main.js" type="module"></script>
