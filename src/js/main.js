@@ -1,32 +1,44 @@
 const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
-const form = document.querySelector(`[name="search"]`);
+const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
-const breweryGrid = document.querySelector(".breweries");
+const resultCardsDisplay = document.querySelector(".breweries");
 
-function handleRadioBtn(radioBtns) {
+function handleRadioBtns(radioBtns) {
   let searchBy;
   for (const radioBtn of radioBtns) {
     if (radioBtn.checked) {
       searchBy = radioBtn.value;
-      console.log(searchBy);
       return searchBy;
     }
   }
 }
 
+function capitalizeFirstLetter(query) {
+  const words = query.split(" ");
+  // for (let i = 0; i < words.length; i++) {
+  //   words[i] = words[i][0].toUpperCase() + keywords[i].substr(1);
+  // }
+  // return words.join(" ");
+  return words
+    .map((word) => {
+      return word[0].toUpperCase() + word.substring(1);
+    })
+    .join(" ");
+}
+
 async function searchByCountry(query) {
-  const responseCountries = await fetch(
-    `${baseEndpoint}/search?query={${query}}&per_page=200`
+  const capitalizedQuery = capitalizeFirstLetter(query);
+  const responseCountry = await fetch(
+    `${baseEndpoint}/search?query={${capitalizedQuery}}&per_page=200`
   );
-  const unfiltered = await responseCountries.json();
-  console.log(unfiltered);
-  const dataCountries = [];
-  for (const brewery of unfiltered) {
-    if (brewery.country === query) {
-      dataCountries.push(brewery);
+  const unfilteredData = await responseCountry.json();
+  const dataCountry = [];
+  for (const breweryData of unfilteredData) {
+    if (breweryData.country === capitalizedQuery) {
+      dataCountry.push(breweryData);
     }
   }
-  return dataCountries;
+  return dataCountry;
 }
 
 async function searchByAny(query) {
@@ -34,137 +46,71 @@ async function searchByAny(query) {
     `${baseEndpoint}/search?query={${query}}&per_page=200`
   );
   const dataAny = await responseAny.json();
-  console.log(dataAny);
   return dataAny;
 }
 
-async function searchByNameOrCity(query, filter) {
+export async function searchByNameOrCity(query, keyword) {
   const responseNameOrCity = await fetch(
-    `${baseEndpoint}?by_${filter}=${query}&per_page=200`
+    `${baseEndpoint}?by_${keyword}=${query}&per_page=200`
   );
   const dataNameOrCity = await responseNameOrCity.json();
   return dataNameOrCity;
 }
 
-async function fetchBreweries(query) {
-  const filter = handleRadioBtn(radioBtns);
-  if (filter === "country") {
+async function handleKeywords(query) {
+  const keyword = handleRadioBtns(radioBtns);
+  if (keyword === "country") {
     return searchByCountry(query);
-  } else if (filter === "any") {
+  } else if (keyword === "any") {
     return searchByAny(query);
-  } else return searchByNameOrCity(query, filter);
+  } else return searchByNameOrCity(query, keyword);
 }
 
-function handleSubmit(event) {
+function handleQuerySubmit(event) {
   event.preventDefault();
-  const query = form.searchbar.value;
-  console.log(query);
+  const query = searchInput.value;
   if (!query) return;
-  fetchAndDisplay(query);
+  fetchData(query);
 }
 
-// async function fetchBreweries(query) {
-//   const filter = handleRadioBtn(radioBtns);
-//   if (filter === "country") {
-//     // const responseCountries = await fetch(`${baseEndpoint}?per_page=200`);
-//     const responseCountries = await fetch(
-//       `${baseEndpoint}/search?query={${query}}&per_page=200`
-//     );
-//     const unfiltered = await responseCountries.json();
-//     console.log(unfiltered);
-//     const dataCountries = [];
-//     for (const brewery of unfiltered) {
-//       if (brewery.country === query) {
-//         dataCountries.push(brewery);
-//       }
-//     }
-//     return dataCountries;
-//   }
-
-//   if (filter === "other") {
-//     const responseOther = await fetch(
-//       `${baseEndpoint}/search?query={${query}}&per_page=200`
-//     );
-//     const dataOther = await responseOther.json();
-//     console.log(dataOther);
-//     return dataOther;
-//   }
-
-//   const responseNameOrCity = await fetch(
-//     `${baseEndpoint}?by_${filter}=${query}&per_page=200`
-//   );
-//   const dataNameOrCity = await responseNameOrCity.json();
-//   return dataNameOrCity;
-// }
-
-// function handleSubmit(event) {
-//   event.preventDefault();
-//   const query = form.searchbar.value;
-//   console.log(query);
-//   if (!query) return;
-//   fetchAndDisplay(query);
-// }
-
-async function fetchAndDisplay(query) {
-  const breweries = await fetchBreweries(query);
-  console.log(breweries);
-  if (!(breweries.length > 0)) {
-    breweryGrid.innerHTML = `<h1>SORRY, NO BREWERIES FOUND!</h1>`;
+async function fetchData(query) {
+  const breweriesData = await handleKeywords(query);
+  if (!(breweriesData.length > 0)) {
+    resultCardsDisplay.innerHTML = `<h1>SORRY, NO BREWERY MATCHES YOUR SEARCH!</h1>`;
     return;
   } else {
-    displayBreweries(breweries);
+    displayBreweryListInfo(breweriesData);
   }
 }
 
-function displayBreweries(breweries) {
-  console.log("creating HTML...");
-  const html = breweries.map(
-    (brewery) =>
-      `<div class="brewery">
-        <h2>${brewery.name} / ${brewery.city} / ${brewery.country}</h2>
-      </div>`
+function displayBreweryListInfo(breweriesData) {
+  console.log("creating HTML for all breweries found...");
+  const html = breweriesData.map(
+    ({ name, city, country }) =>
+      `<a href="result.html" target="_blank">
+        <div class="brewery">
+          <h2 class="brewery-name">${name}</h2>
+          <h2>${city}</h2>
+          <h2>${country}</h2> 
+        </div>
+      </a>`
   );
-  breweryGrid.innerHTML = html.join(``);
+  resultCardsDisplay.innerHTML = html.join(``);
+  const resultCards = document.querySelectorAll(".brewery");
+  resultCards.forEach((card) => {
+    card.addEventListener("click", handleResultClick);
+  });
 }
 
-form.addEventListener("keydown", (event) => {
+export async function handleResultClick(event) {
+  const breweryName = document.querySelector(
+    ".brewery h2.brewery-name"
+  ).innerText;
+  return breweryName;
+}
+
+searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
-    console.log("you pressed enter");
-    handleSubmit(event);
+    handleQuerySubmit(event);
   }
 });
-
-// fetchAndDisplay("dog");
-
-// const numbers = [1, 2, 3, 4, 5];
-
-// // to tud ne dela
-// const rezultat = numbers.forEach((number) => {
-//   if (number === 1) {
-//     const fiks = number;
-//     return fiks;
-//   }
-// });
-
-// console.log(rezultat);
-
-// to dela
-// function filterNumbers(numbers) {
-//   return numbers.filter((number) => number > 2);
-// }
-
-// to pa ne dela
-// function filterNumbers(numbers) {
-//   return function filter(numbers) {
-//     return numbers.forEach(function (number) {
-//       let arr = [];
-//       if (number > 0) {
-//         arr.push(number);
-//       }
-//       return arr;
-//     });
-//   };
-// }
-
-// const rezultat = filterNumbers(numbers);
-// console.log(rezultat);
