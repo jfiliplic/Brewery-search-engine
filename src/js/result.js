@@ -1,4 +1,4 @@
-import { handleResultClick, searchByNameOrCity } from "./main";
+import { handleResultClick, searchByNameOrCity } from "./main.js";
 
 const singleResultCardDisplay = document.querySelector(".wrapper");
 
