@@ -75,6 +75,7 @@ function handleQuerySubmit(event) {
 
 async function fetchData(query) {
   const breweriesData = await handleKeywords(query);
+  console.log(breweriesData);
   if (!(breweriesData.length > 0)) {
     resultCardsDisplay.innerHTML = `<h1>SORRY, NO BREWERY MATCHES YOUR SEARCH!</h1>`;
     return;
@@ -87,30 +88,25 @@ function displayBreweryListInfo(breweriesData) {
   console.log("creating HTML for all breweries found...");
   const html = breweriesData.map(
     ({ name, city, country }) =>
-      `<a href="result.html" target="_blank">
+      `<a href="result.html?brewery=${name}" target="_blank">
         <div class="brewery">
-          <h2 class="brewery-name">${name}</h2>
-          <h2>${city}</h2>
+          <h2 class="brewery-name">${name}<span>/</span></h2>
+          <h2>${city}<span>/</span></h2>
           <h2>${country}</h2> 
         </div>
       </a>`
   );
   resultCardsDisplay.innerHTML = html.join(``);
-  const resultCards = document.querySelectorAll(".brewery");
-  resultCards.forEach((card) => {
-    card.addEventListener("click", handleResultClick);
-  });
 }
 
-export async function handleResultClick(event) {
-  const breweryName = document.querySelector(
-    ".brewery h2.brewery-name"
-  ).innerText;
-  return breweryName;
-}
-
-searchInput.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    handleQuerySubmit(event);
+function searchWithEnter(searchInput) {
+  if (searchInput) {
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        handleQuerySubmit(event);
+      }
+    });
   }
-});
+}
+
+searchWithEnter(searchInput);

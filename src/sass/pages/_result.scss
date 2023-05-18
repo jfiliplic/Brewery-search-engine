@@ -1,0 +1,27 @@
+.wrapper {
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+
+  a {
+    display: block;
+    margin-bottom: 2rem;
+    color: white;
+
+    &:hover,
+    &:active {
+      color: blue;
+    }
+  }
+
+  a.noLink {
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:hover,
+    &:active {
+      color: white;
+      cursor: default;
+    }
+  }
+}

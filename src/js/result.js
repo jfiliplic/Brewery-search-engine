@@ -1,23 +1,57 @@
-import { handleResultClick, searchByNameOrCity } from "./main.js";
+import { searchByNameOrCity } from "./main.js";
 
 const singleResultCardDisplay = document.querySelector(".wrapper");
 
-async function displaySingleBreweryInfo() {
+function parseBreweryName() {
+  const breweryName = window.location.search.slice(9).replaceAll(/%20/g, " ");
+  return breweryName;
+}
+
+function createSingleBreweryHtml(
+  name,
+  type,
+  longitude,
+  latitude,
+  phone,
+  website_url
+) {
   console.log("creating HTML for a single brewery..");
-  breweryName = handleResultClick();
-  const { name, type, phone, website_url } = await searchByNameOrCity(
-    breweryName,
-    "name"
-  );
-  const html = `
-  <h4>${name}</h4>
-  <h4>${type}</h4>
-  <h4>${phone}</h4>
-  <a href="${website_url} " target="_blank">${
+  const html1 = `
+  <h4>Name: ${name}</h4>
+  <h4>Brewery type: ${type || "no type available"}</h4>
+  <h4>Phone: ${phone || "no phone available"}</h4>
+  <a href="${website_url}" target="_blank">${
     website_url || "no website available"
   }</a>
   `;
-  singleResultCardDisplay.innerHTML = html.join(``);
+
+  if (latitude && longitude) {
+    const html2 = `
+    <a href="https://www.google.com/maps/place/${latitude},%20${longitude}" target="_blank">Map</<a>`;
+    singleResultCardDisplay.innerHTML = html1 + html2;
+  } else {
+    singleResultCardDisplay.innerHTML =
+      html1 + `<p>no coordinates available</p>`;
+  }
+
+  const breweryLink = document.querySelector(".wrapper a");
+  if (!website_url) {
+    breweryLink.classList.add("noLink");
+  }
+
+  breweryLink.addEventListener("click", (event) => {
+    if (!website_url) {
+      event.preventDefault();
+    }
+  });
+}
+
+async function displaySingleBreweryInfo() {
+  const breweryName = parseBreweryName();
+  const detailedBreweryData = await searchByNameOrCity(breweryName, "name");
+  const { name, type, longitude, latitude, phone, website_url } =
+    detailedBreweryData[0];
+  createSingleBreweryHtml(name, type, longitude, latitude, phone, website_url);
 }
 
 displaySingleBreweryInfo();

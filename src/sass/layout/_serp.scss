@@ -1,0 +1,30 @@
+.breweries {
+  max-width: 1000px;
+  margin: 3rem auto;
+  padding: 3rem 3rem;
+  font-size: 2rem;
+  color: white;
+
+  a {
+    text-decoration: none;
+
+    .brewery {
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      border-radius: 10px;
+      background-color: rgba(255, 167, 0, 255);
+      color: black;
+      font-size: 1rem;
+      font-family: "Kavoon";
+      text-align: left;
+
+      h2 {
+        display: inline-block;
+
+        span {
+          margin: 0 2rem;
+        }
+      }
+    }
+  }
+}
