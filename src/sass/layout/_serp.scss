@@ -1,30 +1,58 @@
-.breweries {
+.result-cards {
   max-width: 1000px;
-  margin: 3rem auto;
+  margin: 0 auto;
   padding: 3rem 3rem;
-  font-size: 2rem;
   color: white;
 
-  a {
-    text-decoration: none;
+  .no-match {
+    text-align: center;
+  }
+}
 
-    .brewery {
-      margin-bottom: 1.5rem;
-      padding: 1.5rem;
-      border-radius: 10px;
-      background-color: rgba(255, 167, 0, 255);
-      color: black;
-      font-size: 1rem;
-      font-family: "Kavoon";
-      text-align: left;
+.single-card {
+  margin-bottom: 1.5rem;
+  padding: 2.5rem;
+  border-radius: 10px;
+  background-color: rgb(255, 167, 0);
+  box-shadow: 1px 1px 0 0 rgb(212, 138, 0), -1px 0 0 0 rgb(212, 138, 0),
+    2px 2px 0 0 rgb(165, 107, 0), -2px 0 0 0 rgb(165, 107, 0),
+    3px 3px 0 0 rgb(122, 80, 0), -3px 0 0 0 rgb(122, 80, 0),
+    4px 4px 0 0 rgb(83, 54, 0), -4px 0 0 0 rgb(83, 54, 0),
+    5px 5px 0 0 rgb(36, 23, 0), -5px 0 0 0 rgb(36, 23, 0);
+  color: black;
+  font-size: 1.2rem;
+  font-family: "Kavoon", sans-serif;
+  text-align: left;
+  transition: transform 0.2s ease-in-out;
 
-      h2 {
-        display: inline-block;
+  h2 {
+    display: inline-block;
+    margin: 0;
+    font-size: 1.8rem;
 
-        span {
-          margin: 0 2rem;
-        }
-      }
+    span {
+      margin: 0 2rem;
     }
+  }
+}
+
+.single-card:hover {
+  z-index: 1;
+  box-shadow: 1px 1px 0 0 rgb(212, 138, 0), -1px 0 0 0 rgb(212, 138, 0),
+    2px 2px 0 0 rgb(165, 107, 0), -2px 0 0 0 rgb(165, 107, 0),
+    3px 3px 0 0 rgb(122, 80, 0), -3px 0 0 0 rgb(122, 80, 0),
+    4px 4px 0 0 rgb(83, 54, 0), -4px 0 0 0 rgb(83, 54, 0),
+    5px 5px 0 0 rgb(36, 23, 0), -5px 0 0 0 rgb(36, 23, 0),
+    5px 5px 5px 0 rgb(36, 23, 0), -5px 0 5px 0 rgb(36, 23, 0);
+  transform: scale(1.03);
+
+  &:active {
+    background-color: rgb(253, 153, 2);
+    box-shadow: 1px 1px 0 0 rgb(212, 138, 0), -1px 0 0 0 rgb(212, 138, 0),
+      2px 2px 0 0 rgb(165, 107, 0), -2px 0 0 0 rgb(165, 107, 0),
+      3px 3px 0 0 rgb(122, 80, 0), -3px 0 0 0 rgb(122, 80, 0),
+      4px 4px 0 0 rgb(83, 54, 0), -4px 0 0 0 rgb(83, 54, 0),
+      5px 5px 0 0 rgb(36, 23, 0), -5px 0 0 0 rgb(36, 23, 0),
+      5px 5px 5px 0 rgb(36, 23, 0), -5px 0 5px 0 rgb(36, 23, 0);
   }
 }

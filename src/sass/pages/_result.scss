@@ -1,26 +1,64 @@
-.wrapper {
-  font-size: 2rem;
-  color: white;
+.detailed-card-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 3rem;
+}
+
+.detailed-card {
+  margin-bottom: 1.5rem;
+  padding: 2.5rem;
+  border-radius: 10px;
+  background-color: rgb(255, 167, 0);
+  box-shadow: 1px 1px 0 0 rgb(212, 138, 0), -1px 0 0 0 rgb(212, 138, 0),
+    2px 2px 0 0 rgb(165, 107, 0), -2px 0 0 0 rgb(165, 107, 0),
+    3px 3px 0 0 rgb(122, 80, 0), -3px 0 0 0 rgb(122, 80, 0),
+    4px 4px 0 0 rgb(83, 54, 0), -4px 0 0 0 rgb(83, 54, 0),
+    5px 5px 0 0 rgb(36, 23, 0), -5px 0 0 0 rgb(36, 23, 0);
+  color: black;
   font-weight: bold;
+  font-family: "Kavoon", sans-serif;
+  text-align: left;
+  line-height: 2.5;
 
-  a {
-    display: block;
-    margin-bottom: 2rem;
-    color: white;
+  h2 {
+    font-size: 1.8rem;
+    margin: 0;
 
-    &:hover,
-    &:active {
-      color: blue;
+    span {
+      font-weight: 100;
     }
   }
 
-  a.noLink {
-    text-transform: uppercase;
+  a {
+    display: block;
+    color: black;
+    font-size: 1.8rem;
+    text-decoration: none;
+
+    span {
+      font-weight: 100;
+    }
+
+    &:hover {
+      color: rgb(92, 66, 17);
+
+      span {
+        color: black;
+        // cursor: default;
+      }
+    }
+
+    &:active {
+      color: rgb(134, 92, 14);
+    }
+  }
+
+  a.no-link {
+    color: black;
     text-decoration: none;
 
     &:hover,
     &:active {
-      color: white;
       cursor: default;
     }
   }
