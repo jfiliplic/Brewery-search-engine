@@ -1,3 +1,31 @@
 //  --------------------------------------------------------------------------------
 //  Contains all style related to header of the site/application
 //  --------------------------------------------------------------------------------
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    height: 130px;
+    width: 130px;
+  }
+  h1 {
+    position: relative;
+    top: -75px;
+    font-family: "Kavoon";
+    font-size: 4rem;
+    color: lightgray;
+    text-shadow: 1px 1px darkgray;
+  }
+
+  h3 {
+    position: relative;
+    top: -110px;
+    left: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    color: rgba(255, 167, 0, 255);
+  }
+}

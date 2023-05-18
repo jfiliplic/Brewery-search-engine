@@ -1,27 +1,16 @@
 @use "../abstracts" as *;
 
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-}
-
 html {
-    box-sizing: border-box;
-    font-size: 62.5%; // 10px / 16px = 62.5% -> 1rem = 10px
+  box-sizing: border-box;
+  font-size: 62.5%; // 10px / 16px = 62.5% -> 1rem = 10px
 }
 
-/**
- * Basic styles for links
- */
-a {
-    color: $color-primary;
-    text-decoration: none;
-
-    @include hover-focus-active {
-        color: $text-color;
-        text-decoration: underline;
-    }
+body {
+  height: 100vh;
+  background-color: lightgray;
+  background-image: url("../assets/images/bg2.jpg");
+  background-size: cover;
+  background-position: center;
+  font-size: 2rem;
+  line-height: 1.5;
 }

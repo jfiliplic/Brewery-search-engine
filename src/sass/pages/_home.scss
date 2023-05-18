@@ -1,3 +1,69 @@
 //  --------------------------------------------------------------------------------
 //  Contains style that are specific for home page
 //  --------------------------------------------------------------------------------
+form {
+    max-width: 450px;
+    margin: 3rem auto;
+    padding: 0 3rem;
+  
+    input.searchbar {
+      position: relative;
+      top: -50px;
+      height: 40px;
+      width: 100%;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 15px;
+      border: none;
+      font-size: 1.8rem;
+  
+      &:focus {
+        outline: 2px solid rgba(255, 167, 0, 255);
+  
+        &::placeholder {
+          visibility: hidden;
+        }
+      }
+    }
+  
+    fieldset {
+      position: relative;
+      top: -40px;
+      margin: 0 auto;
+      width: 80%;
+      border: none;
+  
+      label:not(:last-of-type) {
+        margin-right: 2rem;
+        font-size: 1.5rem;
+        color: white;
+      }
+  
+      label:last-of-type {
+        margin-right: 0;
+        font-size: 1.5rem;
+        color: white;
+      }
+  
+      input[type="radio"] {
+        position: relative;
+        vertical-align: text-bottom;
+        margin-right: 0.5rem;
+        height: 1.5rem;
+        width: 1.5rem;
+        accent-color: rgba(255, 167, 0, 255);
+  
+        &:checked {
+          color: rgba(255, 167, 0, 255);
+        }
+  
+        &:checked + label {
+          color: rgba(255, 167, 0, 255);
+        }
+      }
+  
+      input[type="radio"]:first-of-type {
+        margin-left: 3px;
+      }
+    }
+  }
