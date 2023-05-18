@@ -1,7 +1,7 @@
 const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
-const resultCardsDisplay = document.querySelector(".breweries");
+const resultCardsDisplay = document.querySelector(".result-cards");
 
 function handleRadioBtns(radioBtns) {
   let searchBy;
@@ -77,7 +77,7 @@ async function fetchData(query) {
   const breweriesData = await handleKeywords(query);
   console.log(breweriesData);
   if (!(breweriesData.length > 0)) {
-    resultCardsDisplay.innerHTML = `<h1>SORRY, NO BREWERY MATCHES YOUR SEARCH!</h1>`;
+    resultCardsDisplay.innerHTML = `<h3 class="no-match">SORRY, NO BREWERY MATCHES YOUR SEARCH!</h3>`;
     return;
   } else {
     displayBreweryListInfo(breweriesData);
@@ -89,8 +89,8 @@ function displayBreweryListInfo(breweriesData) {
   const html = breweriesData.map(
     ({ name, city, country }) =>
       `<a href="result.html?brewery=${name}" target="_blank">
-        <div class="brewery">
-          <h2 class="brewery-name">${name}<span>/</span></h2>
+        <div class="single-card">
+          <h2>${name}<span>/</span></h2>
           <h2>${city}<span>/</span></h2>
           <h2>${country}</h2> 
         </div>
