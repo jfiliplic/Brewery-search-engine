@@ -51,9 +51,6 @@ async function displaySingleBreweryInfo() {
   const detailedBreweryData = await searchByNameOrCity(breweryName, "name");
   const { name, type, longitude, latitude, phone, website_url } =
     detailedBreweryData[0];
-  console.log(latitude, longitude);
-  console.log(detailedBreweryData);
-
   createSingleBreweryHtml(name, type, longitude, latitude, phone, website_url);
 }
 
