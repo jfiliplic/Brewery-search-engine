@@ -76,44 +76,59 @@ function handleQuerySubmit(event) {
 async function fetchData(query) {
   const breweriesData = await handleKeywords(query);
   const resultsPerPage = 10;
+  const totalResults = breweriesData.length;
+  const numberOfSteps = Math.floor(totalResults / resultsPerPage);
   console.log(breweriesData);
-  if (!(breweriesData.length > 0)) {
+  if (!(totalResults > 0)) {
     resultCardsDisplay.innerHTML = `<h3 class="no-match">SORRY, NO BREWERY MATCHES YOUR SEARCH!</h3>`;
     return;
   } else {
-    displayBreweryListInfo(breweriesData);
+    displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
   }
-  if (breweriesData.length > resultsPerPage) {
-    navigateResultPages(breweriesData, resultsPerPage);
+  if (totalResults > resultsPerPage) {
+    navigateResultPages(
+      breweriesData,
+      resultsPerPage,
+      totalResults,
+      numberOfSteps
+    );
   }
 }
 
-function displayBreweryListInfo(breweriesData, resultPageNumber = 0) {
-  const totalResults = breweriesData.length;
-  let resultsPerPage = 10;
-  const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  const pagesBehind = resultPageNumber * resultsPerPage;
-  const pagesToShow = totalResults - pagesBehind;
-  if (totalResults - pagesBehind < resultsPerPage) {
-    resultsPerPage = totalResults - pagesBehind;
+function displayBreweryListInfo(
+  breweriesData,
+  resultsPerPage,
+  totalResults,
+  resultPageNumber = 0
+) {
+  // const totalResults = breweriesData.length;
+  // let resultsPerPage = 10;
+  // const numberOfSteps = Math.floor(totalResults / resultsPerPage);
+  const resultsBehind = resultPageNumber * resultsPerPage;
+  const resultsCurrentAhead = totalResults - resultsBehind;
+  if (totalResults - resultsBehind < resultsPerPage) {
+    resultsPerPage = totalResults - resultsBehind;
   }
-  console.log(
-    `totalResults: ${totalResults}, resultsPerPage: ${resultsPerPage}, numberOfStep: ${numberOfSteps}`
-  );
+  // console.log(
+  //   `totalResults: ${totalResults}, resultsPerPage: ${resultsPerPage}, numberOfSteps: ${numberOfSteps}`
+  // );
   console.log("creating HTML for all breweries found...");
+  console.log(resultPageNumber);
   const htmlPagination = `
   <div class="pagination" data-resultPageNumber="${resultPageNumber}">
-    <span>Showing ${1 + pagesBehind} - ${
-    totalResults > resultsPerPage ? resultsPerPage + pagesBehind : totalResults
+    <span>Showing ${1 + resultsBehind} - ${
+    totalResults > resultsPerPage
+      ? resultsPerPage + resultsBehind
+      : totalResults
   } of ${totalResults}</span>
     <label for="back">
     <button type="button" id="back" class="back" ${
-      pagesBehind ? `disabled:false` : `disabled`
+      resultsBehind ? `disabled:false` : `disabled`
     }><<</button>
     </label>
     <label for="forward">
     <button type="button" id="forward" class="forward" ${
-      pagesToShow > resultsPerPage ? `disabled:false` : `disabled`
+      resultsCurrentAhead > resultsPerPage ? `disabled:false` : `disabled`
     }>>></button>
     </label>
   </div>`;
@@ -121,15 +136,15 @@ function displayBreweryListInfo(breweriesData, resultPageNumber = 0) {
 
   //ali z indeksiranjem (map dela samo na array - daj objekt v array z oglatimi oklepaji) ali pa slice s korakom resultsPerPage
 
-  let cards = [];
+  let htmlResultCards = [];
   for (
-    let i = 0 + pagesBehind;
-    pagesToShow > resultsPerPage
-      ? i < resultsPerPage + pagesBehind
-      : i < pagesToShow + pagesBehind;
+    let i = 0 + resultsBehind;
+    resultsCurrentAhead > resultsPerPage
+      ? i < resultsPerPage + resultsBehind
+      : i < resultsCurrentAhead + resultsBehind;
     i++
   ) {
-    const htmlResultCards = [breweriesData[i]].map(
+    const htmlResultCard = [breweriesData[i]].map(
       ({ name, city, country }) =>
         `<a href="result.html?brewery=${name}" target="_blank">
         <div class="single-card">
@@ -139,39 +154,62 @@ function displayBreweryListInfo(breweriesData, resultPageNumber = 0) {
         </div>
       </a>`
     );
-    cards.push(htmlResultCards);
-    console.log(cards);
+    htmlResultCards.push(htmlResultCard);
   }
 
-  resultCardsDisplay.insertAdjacentHTML("beforeend", cards.join(``));
+  resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
 
   // varianta brez vmesnega koraka
   // resultCardsDisplay.innerHTML = htmlPagination + htmlResultCards.join(``);
 }
 
-function increaseResultPage(breweriesData) {
+function increaseResultPage(
+  breweriesData,
+  resultsPerPage,
+  totalResults,
+  numberOfSteps,
+  resultPageNumber
+) {
   console.log("forward");
-  const paginator = document.querySelector(".pagination");
-  const totalResults = breweriesData.length;
-  const resultsPerPage = 10;
-  const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  let resultPage = parseInt(paginator.dataset.resultpagenumber);
-  if (resultPage < numberOfSteps) {
-    resultPage++;
-    displayBreweryListInfo(breweriesData, resultPage);
+  // const paginator = document.querySelector(".pagination");
+  // const totalResults = breweriesData.length;
+  // const resultsPerPage = 10;
+  // const numberOfSteps = Math.floor(totalResults / resultsPerPage);
+  // let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
+  if (resultPageNumber < numberOfSteps) {
+    console.log(resultPageNumber);
+    resultPageNumber++;
+    console.log(resultPageNumber);
+    displayBreweryListInfo(
+      breweriesData,
+      resultsPerPage,
+      totalResults,
+      resultPageNumber
+    );
   }
 }
 
-function decreaseResultPage(breweriesData) {
+function decreaseResultPage(
+  breweriesData,
+  resultsPerPage,
+  totalResults,
+  resultPageNumber
+) {
   console.log("back");
-  const paginator = document.querySelector(".pagination");
-  const totalResults = breweriesData.length;
-  const resultsPerPage = 10;
-  const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  let resultPage = parseInt(paginator.dataset.resultpagenumber);
-  if (resultPage > 0) {
-    resultPage--;
-    displayBreweryListInfo(breweriesData, resultPage);
+  // const paginator = document.querySelector(".pagination");
+  // const totalResults = breweriesData.length;
+  // const resultsPerPage = 10;
+  // const numberOfSteps = Math.floor(totalResults / resultsPerPage);
+  // let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
+  if (resultPageNumber > 0) {
+    resultPageNumber--;
+    console.log(resultPageNumber);
+    displayBreweryListInfo(
+      breweriesData,
+      resultsPerPage,
+      totalResults,
+      resultPageNumber
+    );
   }
 }
 
@@ -187,13 +225,32 @@ function searchWithEnter() {
   }
 }
 
-function navigateResultPages(breweriesData) {
+function navigateResultPages(
+  breweriesData,
+  resultsPerPage,
+  totalResults,
+  numberOfSteps
+) {
   if (resultCardsDisplay) {
+    const pagination = document.querySelector(".pagination");
     resultCardsDisplay.addEventListener("click", (event) => {
+      let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
+      console.log(resultPageNumber);
       if (event.target.matches("button.back")) {
-        decreaseResultPage(breweriesData);
+        decreaseResultPage(
+          breweriesData,
+          resultsPerPage,
+          totalResults,
+          resultPageNumber
+        );
       } else if (event.target.matches("button.forward")) {
-        increaseResultPage(breweriesData);
+        increaseResultPage(
+          breweriesData,
+          resultsPerPage,
+          totalResults,
+          numberOfSteps,
+          resultPageNumber
+        );
       }
     });
   }
