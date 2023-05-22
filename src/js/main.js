@@ -78,7 +78,6 @@ async function fetchData(query) {
   const resultsPerPage = 10;
   const totalResults = breweriesData.length;
   const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  console.log(breweriesData);
   if (!(totalResults > 0)) {
     resultCardsDisplay.innerHTML = `<h3 class="no-match">SORRY, NO BREWERY MATCHES YOUR SEARCH!</h3>`;
     return;
@@ -101,19 +100,12 @@ function displayBreweryListInfo(
   totalResults,
   resultPageNumber = 0
 ) {
-  // const totalResults = breweriesData.length;
-  // let resultsPerPage = 10;
-  // const numberOfSteps = Math.floor(totalResults / resultsPerPage);
+  console.log("creating HTML for all breweries found...");
   const resultsBehind = resultPageNumber * resultsPerPage;
   const resultsCurrentAhead = totalResults - resultsBehind;
   if (totalResults - resultsBehind < resultsPerPage) {
     resultsPerPage = totalResults - resultsBehind;
   }
-  // console.log(
-  //   `totalResults: ${totalResults}, resultsPerPage: ${resultsPerPage}, numberOfSteps: ${numberOfSteps}`
-  // );
-  console.log("creating HTML for all breweries found...");
-  console.log(resultPageNumber);
   const htmlPagination = `
   <div class="pagination" data-resultPageNumber="${resultPageNumber}">
     <span>Showing ${1 + resultsBehind} - ${
@@ -134,14 +126,12 @@ function displayBreweryListInfo(
   </div>`;
   resultCardsDisplay.innerHTML = htmlPagination;
 
-  //ali z indeksiranjem (map dela samo na array - daj objekt v array z oglatimi oklepaji) ali pa slice s korakom resultsPerPage
-
   let htmlResultCards = [];
   for (
     let i = 0 + resultsBehind;
     resultsCurrentAhead > resultsPerPage
       ? i < resultsPerPage + resultsBehind
-      : i < resultsCurrentAhead + resultsBehind;
+      : i < totalResults;
     i++
   ) {
     const htmlResultCard = [breweriesData[i]].map(
@@ -157,63 +147,47 @@ function displayBreweryListInfo(
     htmlResultCards.push(htmlResultCard);
   }
 
+  //varianta 2: slice s korakom resultsPerPage
+
   resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
 
   // varianta brez vmesnega koraka
   // resultCardsDisplay.innerHTML = htmlPagination + htmlResultCards.join(``);
 }
 
-function increaseResultPage(
+function changeResultPage(
+  event,
   breweriesData,
   resultsPerPage,
   totalResults,
-  numberOfSteps,
-  resultPageNumber
+  numberOfSteps
 ) {
-  console.log("forward");
-  // const paginator = document.querySelector(".pagination");
-  // const totalResults = breweriesData.length;
-  // const resultsPerPage = 10;
-  // const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  // let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
-  if (resultPageNumber < numberOfSteps) {
-    console.log(resultPageNumber);
-    resultPageNumber++;
-    console.log(resultPageNumber);
-    displayBreweryListInfo(
-      breweriesData,
-      resultsPerPage,
-      totalResults,
-      resultPageNumber
-    );
+  const pagination = document.querySelector(".pagination");
+  let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
+  if (event.target.matches("button.forward")) {
+    if (resultPageNumber < numberOfSteps) {
+      resultPageNumber++;
+      displayBreweryListInfo(
+        breweriesData,
+        resultsPerPage,
+        totalResults,
+        resultPageNumber
+      );
+    }
+  } else if (event.target.matches("button.back")) {
+    if (resultPageNumber > 0) {
+      resultPageNumber--;
+      displayBreweryListInfo(
+        breweriesData,
+        resultsPerPage,
+        totalResults,
+        resultPageNumber
+      );
+    }
   }
 }
 
-function decreaseResultPage(
-  breweriesData,
-  resultsPerPage,
-  totalResults,
-  resultPageNumber
-) {
-  console.log("back");
-  // const paginator = document.querySelector(".pagination");
-  // const totalResults = breweriesData.length;
-  // const resultsPerPage = 10;
-  // const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  // let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
-  if (resultPageNumber > 0) {
-    resultPageNumber--;
-    console.log(resultPageNumber);
-    displayBreweryListInfo(
-      breweriesData,
-      resultsPerPage,
-      totalResults,
-      resultPageNumber
-    );
-  }
-}
-
-// listenerje sem dal v funkciji s pogojem, ker drugače pri klicanju funkcije searchByNameOrCity (ali katerekoli druge) iz modula main.js v modulu results.js modul results.js požene cel modul main.js (zato seveda tudi event listener), ta pa na strani result.html ne najde elementa input.searchbar
+// listenerje sem dal v funkcije s pogojem, ker drugače pri klicanju funkcije searchByNameOrCity (ali katerekoli druge) iz modula main.js v modulu results.js modul results.js požene cel modul main.js (zato seveda tudi event listener), ta pa na strani result.html ne najde elementa input.searchbar in javi napako
 
 function searchWithEnter() {
   if (searchInput) {
@@ -232,26 +206,14 @@ function navigateResultPages(
   numberOfSteps
 ) {
   if (resultCardsDisplay) {
-    const pagination = document.querySelector(".pagination");
     resultCardsDisplay.addEventListener("click", (event) => {
-      let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
-      console.log(resultPageNumber);
-      if (event.target.matches("button.back")) {
-        decreaseResultPage(
-          breweriesData,
-          resultsPerPage,
-          totalResults,
-          resultPageNumber
-        );
-      } else if (event.target.matches("button.forward")) {
-        increaseResultPage(
-          breweriesData,
-          resultsPerPage,
-          totalResults,
-          numberOfSteps,
-          resultPageNumber
-        );
-      }
+      changeResultPage(
+        event,
+        breweriesData,
+        resultsPerPage,
+        totalResults,
+        numberOfSteps
+      );
     });
   }
 }
