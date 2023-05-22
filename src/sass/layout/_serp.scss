@@ -10,6 +10,26 @@
   }
 }
 
+.pagination {
+  position: absolute;
+  top: -2rem;
+  right: 5rem;
+
+  span {
+    margin-right: 2rem;
+    font-size: 1.8rem;
+  }
+
+  button {
+    border-radius: 5px;
+    background-color: lightgray;
+
+    &:disabled {
+      background-color: gray;
+    }
+  }
+}
+
 .single-card {
   margin-bottom: 1.5rem;
   padding: 2.5rem;

@@ -1,59 +1,66 @@
-.pagination {
-//   width: 100px;
+.toggle-1 {
   position: absolute;
-  top: -2rem;
-  right: 5rem;
+  right: 2rem;
+  top: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 15px 0 0;
 }
 
-// .toggle-1 {
-//   font-family: Arial, Helvetica, sans-serif;
-//   display: inline-block;
-//   vertical-align: top;
-//   margin: 0 15px 0 0;
-// }
+.toggle-1__input {
+  display: none;
+}
 
-// .toggle-1__input {
-//   display: none;
-// }
+.toggle-1__button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-family: "Kavoon", "Times New Roman";
+  font-size: 14px;
+  font-weight: lighter;
+  border-top: 2px solid gray;
+  border-left: 2px solid gray;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
+  border-radius: 5px;
+  /* backup barva, če psevdo element ne dela */
+  color: white;
+  text-transform: uppercase;
+  /* višina vrstice txta, usredini txt */
+  line-height: 21px;
+  background-color: lightgray;
+  // border: 1px solid black;
+  height: 30px;
+  width: 90px;
+  // box-sizing: border-box;
+  transition: background-color 0.5s linear;
+}
 
-// .toggle-1__button {
-//   position: relative;
-//   display: inline-block;
-//   cursor: pointer;
-//   font-size: 14px;
-//   /* backup barva, če psevdo element ne dela */
-//   color: white;
-//   text-transform: uppercase;
-//   /* višina vrstice txta, usredini txt */
-//   line-height: 21px;
-//   background-color: #f2395a;
-//   border: 1px solid black;
-//   height: 30px;
-//   width: 80px;
-//   transition: background-color 0.5s linear;
-// }
+.toggle-1__button::before {
+  position: absolute;
+  top: 5px;
+  left: 40px;
+  /* a je to nujno?? dela tudi brez! */
+  right: auto;
+  /* a je to nujno?? dela tudi brez! */
+  display: inline-block;
+  content: "dark";
+  color: white;
+  height: 20px;
+  padding: 0 3px;
+  border-radius: 3px;
+  background-color: gray;
+  transition: all 0.5s linear;
+}
+.toggle-1__input:checked + .toggle-1__button {
+  background-color: rgb(255, 241, 117);
+}
 
-// .toggle-1__button::before {
-//   position: absolute;
-//   top: 6px;
-//   left: 40px;
-//   /* a je to nujno?? dela tudi brez! */
-//   right: auto;
-//   /* a je to nujno?? dela tudi brez! */
-//   display: inline-block;
-//   content: "off";
-//   color: #f2395a;
-//   height: 20px;
-//   padding: 0 3px;
-//   background-color: white;
-//   transition: all 0.5s linear;
-// }
-// .toggle-1__input:checked + .toggle-1__button {
-//   background-color: #00b3b4;
-// }
-
-// .toggle-1__input:checked + .toggle-1__button::before {
-//   left: 6px;
-//   content: "on";
-//   color: #00b3b4;
-// }
+.toggle-1__input:checked + .toggle-1__button::before {
+  left: 4px;
+  content: "light";
+  background-color: rgb(255, 167, 0);
+  color: white;
+  //   text-transform: lowercase;
+}
