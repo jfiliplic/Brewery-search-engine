@@ -1,10 +1,11 @@
 .result-cards {
+  position: relative;
   max-width: 1000px;
   margin: 0 auto;
   padding: 3rem 3rem;
   color: white;
 
-  .no-match {
+  h3.no-match {
     text-align: center;
   }
 }

@@ -3,7 +3,7 @@ const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
 const resultCardsDisplay = document.querySelector(".result-cards");
 
-function handleRadioBtns(radioBtns) {
+function handleRadioBtns() {
   let searchBy;
   for (const radioBtn of radioBtns) {
     if (radioBtn.checked) {
@@ -58,7 +58,7 @@ export async function searchByNameOrCity(query, keyword) {
 }
 
 async function handleKeywords(query) {
-  const keyword = handleRadioBtns(radioBtns);
+  const keyword = handleRadioBtns();
   if (keyword === "country") {
     return searchByCountry(query);
   } else if (keyword === "any") {
@@ -75,31 +75,121 @@ function handleQuerySubmit(event) {
 
 async function fetchData(query) {
   const breweriesData = await handleKeywords(query);
-  console.log(breweriesData);
-  if (!(breweriesData.length > 0)) {
+  const resultsPerPage = 10;
+  const totalResults = breweriesData.length;
+  const numberOfSteps = Math.floor(totalResults / resultsPerPage);
+  if (!(totalResults > 0)) {
     resultCardsDisplay.innerHTML = `<h3 class="no-match">SORRY, NO BREWERY MATCHES YOUR SEARCH!</h3>`;
     return;
   } else {
-    displayBreweryListInfo(breweriesData);
+    displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
+  }
+  if (totalResults > resultsPerPage) {
+    navigateResultPages(
+      breweriesData,
+      resultsPerPage,
+      totalResults,
+      numberOfSteps
+    );
   }
 }
 
-function displayBreweryListInfo(breweriesData) {
+function displayBreweryListInfo(
+  breweriesData,
+  resultsPerPage,
+  totalResults,
+  resultPageNumber = 0
+) {
   console.log("creating HTML for all breweries found...");
-  const html = breweriesData.map(
-    ({ name, city, country }) =>
-      `<a href="result.html?brewery=${name}" target="_blank">
+  const resultsBehind = resultPageNumber * resultsPerPage;
+  const resultsCurrentAhead = totalResults - resultsBehind;
+  if (totalResults - resultsBehind < resultsPerPage) {
+    resultsPerPage = totalResults - resultsBehind;
+  }
+  const htmlPagination = `
+  <div class="pagination" data-resultPageNumber="${resultPageNumber}">
+    <span>Showing ${1 + resultsBehind} - ${
+    totalResults > resultsPerPage
+      ? resultsPerPage + resultsBehind
+      : totalResults
+  } of ${totalResults}</span>
+    <label for="back">
+    <button type="button" id="back" class="back" ${
+      resultsBehind ? `disabled:false` : `disabled`
+    }><<</button>
+    </label>
+    <label for="forward">
+    <button type="button" id="forward" class="forward" ${
+      resultsCurrentAhead > resultsPerPage ? `disabled:false` : `disabled`
+    }>>></button>
+    </label>
+  </div>`;
+  resultCardsDisplay.innerHTML = htmlPagination;
+
+  let htmlResultCards = [];
+  for (
+    let i = 0 + resultsBehind;
+    resultsCurrentAhead > resultsPerPage
+      ? i < resultsPerPage + resultsBehind
+      : i < totalResults;
+    i++
+  ) {
+    const htmlResultCard = [breweriesData[i]].map(
+      ({ name, city, country }) =>
+        `<a href="result.html?brewery=${name}" target="_blank">
         <div class="single-card">
           <h2>${name}<span>/</span></h2>
           <h2>${city}<span>/</span></h2>
-          <h2>${country}</h2> 
+          <h2>${country}</h2>
         </div>
       </a>`
-  );
-  resultCardsDisplay.innerHTML = html.join(``);
+    );
+    htmlResultCards.push(htmlResultCard);
+  }
+
+  //varianta 2: slice s korakom resultsPerPage
+
+  resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
+
+  // varianta brez vmesnega koraka
+  // resultCardsDisplay.innerHTML = htmlPagination + htmlResultCards.join(``);
 }
 
-function searchWithEnter(searchInput) {
+function changeResultPage(
+  event,
+  breweriesData,
+  resultsPerPage,
+  totalResults,
+  numberOfSteps
+) {
+  const pagination = document.querySelector(".pagination");
+  let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
+  if (event.target.matches("button.forward")) {
+    if (resultPageNumber < numberOfSteps) {
+      resultPageNumber++;
+      displayBreweryListInfo(
+        breweriesData,
+        resultsPerPage,
+        totalResults,
+        resultPageNumber
+      );
+    }
+  } else if (event.target.matches("button.back")) {
+    if (resultPageNumber > 0) {
+      resultPageNumber--;
+      displayBreweryListInfo(
+        breweriesData,
+        resultsPerPage,
+        totalResults,
+        resultPageNumber
+      );
+    }
+  }
+}
+
+// listenerje sem dal v funkcije s pogojem, ker drugače pri klicanju funkcije searchByNameOrCity (ali katerekoli druge) iz modula main.js v modulu results.js modul results.js požene cel modul main.js (zato seveda tudi event listener), ta pa na strani result.html ne najde elementa input.searchbar in javi napako
+
+function searchWithEnter() {
   if (searchInput) {
     searchInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
@@ -109,4 +199,23 @@ function searchWithEnter(searchInput) {
   }
 }
 
-searchWithEnter(searchInput);
+function navigateResultPages(
+  breweriesData,
+  resultsPerPage,
+  totalResults,
+  numberOfSteps
+) {
+  if (resultCardsDisplay) {
+    resultCardsDisplay.addEventListener("click", (event) => {
+      changeResultPage(
+        event,
+        breweriesData,
+        resultsPerPage,
+        totalResults,
+        numberOfSteps
+      );
+    });
+  }
+}
+
+searchWithEnter();
