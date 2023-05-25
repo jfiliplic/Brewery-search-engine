@@ -1,10 +1,13 @@
 import { searchByNameOrCity } from "./main.js";
-import * as theme from "./theme.js";
+// import * as theme from "./theme.js";
 
 const singleResultCardDisplay = document.querySelector(".detailed-card");
 
 function parseBreweryName() {
-  const breweryName = window.location.search.slice(9).replaceAll(/%20/g, " ");
+  const breweryName = window.location.search
+    .slice(9, -10)
+    .replaceAll(/%20/g, " ");
+  console.log(breweryName);
   return breweryName;
 }
 
@@ -57,4 +60,5 @@ async function displaySingleBreweryInfo() {
 
 displaySingleBreweryInfo();
 
-theme.modeToggle();
+// ker zaradi prvega importa vleče not cel main.js, dela modeToggle tudi na result.html. Če uvažam še iz theme.js, ne dela več (ga najbrž ponovno toggla)
+// theme.modeToggle(theme.root, theme.themeToggle);

@@ -1,4 +1,4 @@
-import * as theme from "./theme.js";
+import * as theme from "../js/theme.js";
 
 // const root = document.querySelector(":root");
 // const themeToggle = document.querySelector(".toggle-input");
@@ -138,9 +138,10 @@ function displayBreweryListInfo(
       : i < totalResults;
     i++
   ) {
+    const mode = theme.getMode(theme.root);
     const htmlResultCard = [breweriesData[i]].map(
       ({ name, city, country }) =>
-        `<a href="result.html?brewery=${name}" target="_blank">
+        `<a href="result.html?brewery=${name}&mode=${mode}" target="_blank">
         <div class="single-card">
           <h2>${name}<span>/</span></h2>
           <h2>${city}<span>/</span></h2>
@@ -226,6 +227,6 @@ function navigateResultPages(
 //   root.toggleAttribute("dark");
 // });
 
-theme.modeToggle();
+theme.modeToggle(theme.root, theme.themeToggle);
 
 searchWithEnter();
