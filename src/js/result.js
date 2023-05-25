@@ -1,4 +1,5 @@
 import { searchByNameOrCity } from "./main.js";
+import * as theme from "./theme.js";
 
 const singleResultCardDisplay = document.querySelector(".detailed-card");
 
@@ -55,3 +56,5 @@ async function displaySingleBreweryInfo() {
 }
 
 displaySingleBreweryInfo();
+
+theme.modeToggle();

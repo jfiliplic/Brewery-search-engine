@@ -3,19 +3,19 @@
 :root:not([dark]) {
   background-color: $color-gray-light;
   background-image: url($url-background-light-image);
-  $color-result-card-bg: $color-yellow-base !global;
-  $color-result-card-bg-active: $color-yellow-active !global;
-  $color-result-card-txt: $color-brown-base;
-  $box-shadow-result-card: $box-shadow-yellow;
-  $box-shadow-result-card-hover: $box-shadow-yellow-hover;
+  --color-result-card-bg: #{$color-yellow-base};
+  --color-result-card-bg-active: #{$color-yellow-active};
+  --color-result-card-txt: #{$color-brown-base};
+  --box-shadow-result-card: #{$box-shadow-yellow};
+  --box-shadow-result-card-hover: #{$box-shadow-yellow-hover};
 }
 
 :root[dark] {
   background-color: $color-gray-dark;
   background-image: url($url-background-dark-image);
-  $color-result-card-bg: $color-brown-base !global;
-  $color-result-card-bg-active: $color-brown-active !global;
-  $color-result-card-txt: $color-yellow-base !global;
-  $box-shadow-result-card: $box-shadow-brown !global;
-  $box-shadow-result-card-hover: $box-shadow-brown-hover !global;
+  --color-result-card-bg: #{$color-brown-base};
+  --color-result-card-bg-active: #{$color-brown-active};
+  --color-result-card-txt: #{$color-yellow-base};
+  --box-shadow-result-card: #{$box-shadow-brown};
+  --box-shadow-result-card-hover: #{$box-shadow-brown-hover};
 }

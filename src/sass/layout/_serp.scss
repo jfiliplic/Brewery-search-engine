@@ -1,23 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../themes/themes" as *;
 
-// body.dark {
-//   .single-card {
-//     color: $color-yellow-base;
-//     background-color: rgba($color-brown-base, 0.8);
-//     font-weight: bold;
-//     box-shadow: $box-shadow-brown;
-
-//     &:hover {
-//       box-shadow: $box-shadow-brown-hover;
-//     }
-
-//     &:active {
-//       background-color: rgba($color-brown-active, 0.8);
-//     }
-//   }
-// }
-
 .result-cards {
   position: relative;
   max-width: 1000px;
@@ -37,9 +20,9 @@
   margin-bottom: 1.5rem;
   padding: 2.5rem;
   border-radius: 10px;
-  background-color: rgba($color-result-card-bg, 0.8);
-  box-shadow: $box-shadow-result-card;
-  color: $color-result-card-txt;
+  background-color: var(--color-result-card-bg);
+  box-shadow: var(--box-shadow-result-card);
+  color: var(--color-result-card-txt);
   font-size: 1.2rem;
   font-family: $font-content;
   font-weight: bold;
@@ -57,11 +40,11 @@
 
   &:hover {
     z-index: 1;
-    box-shadow: $box-shadow-result-card-hover;
+    box-shadow: var(--box-shadow-result-card-hover);
     transform: scale(1.03);
   }
 
   &:active {
-    background-color: rgba($color-result-card-bg-active, 0.8);
+    background-color: var(--color-result-card-bg-active);
   }
 }
