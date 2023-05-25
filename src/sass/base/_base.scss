@@ -7,14 +7,17 @@ html {
 
 body {
   height: 100vh;
-  background-color: lightgray;
-  background-image: url("../assets/images/bg2.jpg");
+  background-color: inherit;
+  background-image: inherit;
+  // background-color: $color-gray-light;
+  // background-image: url($url-background-light-image);
   background-size: cover;
   background-position: center;
   font-size: 2rem;
   line-height: 1.5;
 }
 
-body.dark {
-  background-image: url("../assets/images/bg-dark.jpg");
-}
+// body.dark {
+//   // background-color: $color-gray-dark;
+//   // background-image: url($url-background-dark-image);
+// }

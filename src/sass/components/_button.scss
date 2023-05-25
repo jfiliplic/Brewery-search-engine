@@ -1,66 +1,62 @@
-.toggle-1 {
+@use "../abstracts" as *;
+
+.toggle {
   position: absolute;
   right: 2rem;
   top: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: $font-content;
+  font-weight: bold;
   display: inline-block;
   vertical-align: top;
   margin: 0 15px 0 0;
 }
 
-.toggle-1__input {
+.toggle-input {
   display: none;
+
+  &:checked + .toggle-button {
+    // background-color: rgb(255, 241, 117);
+    background-color: $color-white-base;
+  }
+
+  &:checked + .toggle-button::before {
+    left: 4px;
+    content: "light";
+    background-color: $color-yellow-base;
+    color: $color-white-base;
+  }
 }
 
-.toggle-1__button {
-  position: relative;
+.toggle-button {
   display: inline-block;
-  cursor: pointer;
-  font-family: "Kavoon", "Times New Roman";
-  font-size: 14px;
-  font-weight: lighter;
+  position: relative;
+  height: 30px;
+  width: 90px;
+  box-sizing: border-box;
   border-top: 2px solid gray;
   border-left: 2px solid gray;
   border-bottom: 2px solid black;
   border-right: 2px solid black;
+  background-color: $color-gray-light;
   border-radius: 5px;
-  /* backup barva, če psevdo element ne dela */
-  color: white;
+  color: $color-white-base;
+  font-size: 14px;
   text-transform: uppercase;
-  /* višina vrstice txta, usredini txt */
   line-height: 21px;
-  background-color: lightgray;
-  // border: 1px solid black;
-  height: 30px;
-  width: 90px;
-  // box-sizing: border-box;
+  cursor: pointer;
   transition: background-color 0.5s linear;
-}
 
-.toggle-1__button::before {
-  position: absolute;
-  top: 5px;
-  left: 40px;
-  /* a je to nujno?? dela tudi brez! */
-  right: auto;
-  /* a je to nujno?? dela tudi brez! */
-  display: inline-block;
-  content: "dark";
-  color: white;
-  height: 20px;
-  padding: 0 3px;
-  border-radius: 3px;
-  background-color: gray;
-  transition: all 0.5s linear;
-}
-.toggle-1__input:checked + .toggle-1__button {
-  background-color: rgb(255, 241, 117);
-}
-
-.toggle-1__input:checked + .toggle-1__button::before {
-  left: 4px;
-  content: "light";
-  background-color: rgb(255, 167, 0);
-  color: white;
-  //   text-transform: lowercase;
+  &::before {
+    display: inline-block;
+    height: 20px;
+    position: absolute;
+    top: 3px;
+    left: 40px;
+    padding: 0 3px;
+    background-color: $color-gray-dark;
+    border-radius: 3px;
+    content: "dark";
+    color: $color-brown-base;
+    transition: all 0.5s linear;
+  }
 }

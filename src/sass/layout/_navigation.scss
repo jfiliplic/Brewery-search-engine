@@ -1,3 +1,28 @@
 //  --------------------------------------------------------------------------------
 //  Contains all style related to navigation of the site/application
 //  --------------------------------------------------------------------------------
+
+@use "../abstracts/variables" as *;
+
+.pagination {
+  position: absolute;
+  top: -2rem;
+  right: 5rem;
+
+  span {
+    margin-right: 2rem;
+    color: $color-white-base;
+    font-family: $font-function;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  button {
+    border-radius: 5px;
+    background-color: $color-gray-light;
+
+    &:disabled {
+      background-color: $color-gray-dark;
+    }
+  }
+}

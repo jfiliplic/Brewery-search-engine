@@ -1,5 +1,5 @@
-const body = document.querySelector("body");
-const themeToggle = document.querySelector(".toggle-1__input");
+const root = document.querySelector(":root");
+const themeToggle = document.querySelector(".toggle-input");
 const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
@@ -221,7 +221,7 @@ function navigateResultPages(
 }
 
 themeToggle.addEventListener("click", (_) => {
-  body.classList.toggle("dark");
+  root.toggleAttribute("dark");
 });
 
 searchWithEnter();
