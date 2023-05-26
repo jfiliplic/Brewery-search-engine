@@ -1,7 +1,5 @@
 import * as theme from "../js/theme.js";
 
-// const root = document.querySelector(":root");
-// const themeToggle = document.querySelector(".toggle-input");
 const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
@@ -138,10 +136,9 @@ function displayBreweryListInfo(
       : i < totalResults;
     i++
   ) {
-    const mode = theme.getMode(theme.root);
     const htmlResultCard = [breweriesData[i]].map(
       ({ name, city, country }) =>
-        `<a href="result.html?brewery=${name}&mode=${mode}" target="_blank">
+        `<a href="result.html?brewery=${name}" target="_blank">
         <div class="single-card">
           <h2>${name}<span>/</span></h2>
           <h2>${city}<span>/</span></h2>
@@ -223,10 +220,26 @@ function navigateResultPages(
   }
 }
 
-// themeToggle.addEventListener("click", (_) => {
-//   root.toggleAttribute("dark");
-// });
-
 theme.modeToggle(theme.root, theme.themeToggle);
+
+function removeMode(searchInput) {
+  if (searchInput) {
+    if (localStorage.getItem("mode")) {
+      localStorage.removeItem("mode");
+    }
+  }
+}
+
+removeMode(searchInput);
+
+// function determineMode(searchInput) {
+//   if (searchInput) {
+//     theme.getMode(theme.root);
+//   }
+// }
+
+// determineMode(searchInput);
+
+theme.getMode(theme.root);
 
 searchWithEnter();

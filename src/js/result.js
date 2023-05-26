@@ -1,12 +1,14 @@
 import { searchByNameOrCity } from "./main.js";
-// import * as theme from "./theme.js";
+
+const rootResult = document.querySelector(":root");
+if (localStorage.getItem("mode")) {
+  rootResult.setAttribute("dark", null);
+}
 
 const singleResultCardDisplay = document.querySelector(".detailed-card");
 
 function parseBreweryName() {
-  const breweryName = window.location.search
-    .slice(9, -10)
-    .replaceAll(/%20/g, " ");
+  const breweryName = window.location.search.slice(9).replaceAll(/%20/g, " ");
   console.log(breweryName);
   return breweryName;
 }
