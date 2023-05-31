@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../themes/themes" as *;
+@use "../base/typography" as *;
 
 .detailed-card-wrapper {
   max-width: 1000px;
@@ -11,16 +12,16 @@
   margin-bottom: 1.5rem;
   padding: 2.5rem;
   border-radius: 10px;
-  background-color: var(--color-result-card-bg);
+  background-color: #{"rgba(var(--color-result-card-bg), 0.8)"};
   box-shadow: var(--box-shadow-result-card);
-  color: var(--color-result-card-txt);
+  color: #{"rgba(var(--color-result-card-txt), 1.0)"};
   font-family: $font-content;
   font-weight: bold;
   text-align: left;
   line-height: 2.5;
 
   h2 {
-    font-size: 1.8rem;
+    font-size: var(--font-content-size);
     margin: 0;
 
     span {
@@ -30,9 +31,10 @@
 
   a {
     display: block;
-    color: var(--color-result-card-txt);
-    font-size: 1.8rem;
+    color: #{"rgba(var(--color-result-card-txt), 1.0)"};
+    font-size: var(--font-content-size);
     text-decoration: none;
+    word-wrap: break-word;
 
     span {
       font-weight: 100;
@@ -42,7 +44,7 @@
       color: rgb(92, 66, 17);
 
       span {
-        color: var(--color-result-card-txt);
+        color: #{"rgba(var(--color-result-card-txt), 1.0)"};
         // cursor: default;
       }
     }
@@ -53,12 +55,19 @@
   }
 
   a.no-link {
-    color: var(--color-result-card-txt);
+    color: #{"rgba(var(--color-result-card-txt), 1.0)"};
     text-decoration: none;
 
     &:hover,
     &:active {
       cursor: default;
     }
+  }
+}
+
+@media (max-width: $breakpoint) {
+  .detailed-card {
+    padding: 1rem;
+    line-height: 2rem;
   }
 }

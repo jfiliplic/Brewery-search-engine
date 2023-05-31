@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../themes/themes" as *;
+@use "../base/typography" as *;
 
 .result-cards {
   position: relative;
@@ -12,26 +13,33 @@
     text-align: center;
     color: $color-white-base;
     font-family: $font-function;
+    font-size: var(--font-function-size);
     font-weight: bold;
+    text-transform: uppercase;
   }
+}
+
+.single-result-link {
+  text-decoration: none;
 }
 
 .single-card {
   margin-bottom: 1.5rem;
   padding: 2.5rem;
   border-radius: 10px;
-  background-color: var(--color-result-card-bg);
+  background-color: #{"rgba(var(--color-result-card-bg), 0.8)"};
   box-shadow: var(--box-shadow-result-card);
-  color: var(--color-result-card-txt);
-  font-size: 1.2rem;
-  font-family: $font-content;
-  font-weight: bold;
   text-align: left;
   transition: transform 0.2s ease-in-out;
 
   h2 {
     display: inline-block;
     margin: 0;
+    color: #{"rgba(var(--color-result-card-txt), 1.0)"};
+    color: black;
+    font-family: $font-content;
+    font-size: var(--font-content-size);
+    font-weight: bold;
 
     span {
       margin: 0 2rem;
@@ -45,6 +53,13 @@
   }
 
   &:active {
-    background-color: var(--color-result-card-bg-active);
+    background-color: #{"rgba(var(--color-result-card-bg-active), 0.8)"};
+  }
+}
+
+@media (max-width: $breakpoint) {
+  .single-card {
+    padding: 1rem;
+    line-height: 2rem;
   }
 }

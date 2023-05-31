@@ -9,6 +9,10 @@ $color-yellow-base: rgb(255, 167, 0);
 $color-yellow-active: rgb(253, 153, 2);
 $color-brown-base: rgb(49, 11, 8);
 $color-brown-active: rgb(41, 7, 6);
+$color-yellow-base-theme: 255, 167, 0;
+$color-yellow-active-theme: 253, 153, 2;
+$color-brown-base-theme: 49, 11, 8;
+$color-brown-active-theme: 41, 7, 6;
 $color-gray-dark: gray;
 $color-gray-light: lightgray;
 $color-white-base: white;
@@ -36,3 +40,5 @@ $box-shadow-brown-hover: 1px 1px 0 0 #200705, -1px 1px 0 0 #200705,
 
 $font-content: "Kavoon", cursive;
 $font-function: "Times New Roman", cursive;
+
+$breakpoint: 510px;
