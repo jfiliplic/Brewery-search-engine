@@ -57,6 +57,37 @@
     border-radius: 3px;
     content: "dark";
     color: $color-brown-base;
-    transition: all 0.5s linear;
+    transition: left 0.5s linear, background-color 0.5s linear,
+      color 0.5s linear;
+  }
+}
+
+@media (max-width: 510px) {
+  .toggle {
+    right: 0.5rem;
+    top: 2rem;
+  }
+
+  .toggle-input {
+    &:checked + .toggle-button::before {
+      left: 2px;
+    }
+  }
+
+  .toggle-button {
+    height: 23px;
+    width: 69px;
+    border-radius: 4px;
+    font-size: 11px;
+    line-height: 16px;
+
+    &::before {
+      height: 15px;
+      top: 2px;
+      left: 28px;
+      padding: 0 2px;
+      background-color: $color-gray-dark;
+      border-radius: 3px;
+    }
   }
 }

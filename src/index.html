@@ -29,29 +29,25 @@
           name="searchbar"
           placeholder="Search by:"
           autocomplete="off"
+          spellcheck="false"
         />
         <fieldset>
-          <label for="name">
-            <input
-              type="radio"
-              id="name"
-              value="name"
-              name="keyword"
-              checked
-            />name</label
-          >
-          <label for="city">
+          <div class="radio-wrapper">
+            <input type="radio" id="name" value="name" name="keyword" checked />
+            <label for="name">name</label>
+          </div>
+          <div class="radio-wrapper">
             <input type="radio" id="city" value="city" name="keyword" />
-            city</label
-          >
-          <label for="country">
+            <label for="city">city</label>
+          </div>
+          <div class="radio-wrapper">
             <input type="radio" id="country" value="country" name="keyword" />
-            country</label
-          >
-          <label for="any">
+            <label for="country">country</label>
+          </div>
+          <div class="radio-wrapper">
             <input type="radio" id="any" value="any" name="keyword" />
-            any keyword</label
-          >
+            <label for="any">any keyword</label>
+          </div>
         </fieldset>
       </form>
       <div class="result-cards"></div>

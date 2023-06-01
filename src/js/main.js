@@ -81,7 +81,7 @@ async function fetchData(query) {
   const totalResults = breweriesData.length;
   const numberOfSteps = Math.floor(totalResults / resultsPerPage);
   if (!(totalResults > 0)) {
-    resultCardsDisplay.innerHTML = `<h3 class="no-match">SORRY, NO BREWERY MATCHES YOUR SEARCH!</h3>`;
+    resultCardsDisplay.innerHTML = `<h3 class="no-match">Sorry, no brewery matches your search!</h3>`;
     return;
   } else {
     displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
@@ -138,7 +138,7 @@ function displayBreweryListInfo(
   ) {
     const htmlResultCard = [breweriesData[i]].map(
       ({ name, city, country }) =>
-        `<a href="result.html?brewery=${name}" target="_blank">
+        `<a class="single-result-link" href="result.html?brewery=${name}" target="_blank">
         <div class="single-card">
           <h2>${name}<span>/</span></h2>
           <h2>${city}<span>/</span></h2>

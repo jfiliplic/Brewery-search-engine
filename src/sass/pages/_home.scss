@@ -2,6 +2,7 @@
 //  Contains style that are specific for home page
 //  --------------------------------------------------------------------------------
 @use "../abstracts/variables" as *;
+@use "../base/typography" as *;
 
 form {
   max-width: 450px;
@@ -18,12 +19,12 @@ form {
     border-radius: 15px;
     border: none;
     color: $color-brown-base;
-    font-size: 1.5rem;
+    font-size: var(--font-function-size);
     font-family: $font-function;
     font-weight: bold;
 
     &::placeholder {
-      color: rgba($color-brown-base, 0.5);
+      color: #{"rgba($color-brown-base, 0.5)"};
     }
 
     &:focus {
@@ -37,26 +38,20 @@ form {
 }
 
 fieldset {
+  display: flex;
   position: relative;
   top: -40px;
   margin: 0 auto;
-  width: 80%;
+  max-width: 75%;
   border: none;
+}
 
-  label {
-    margin-right: 1.5rem;
-    color: $color-white-base;
-    font-size: 1.5rem;
-    font-family: $font-function;
-    font-weight: bold;
+.radio-wrapper {
+  display: flex;
+  margin-right: 1.8rem;
 
-    &:last-of-type {
-      margin-right: 0;
-    }
-
-    &:has(> input[type="radio"]:checked) {
-      color: $color-yellow-base;
-    }
+  &:last-of-type {
+    margin-right: 0;
   }
 
   input[type="radio"] {
@@ -64,26 +59,53 @@ fieldset {
     height: 1.5rem;
     width: 1.5rem;
     margin-right: 0.5rem;
-    vertical-align: text-bottom;
+    align-self: center;
     accent-color: $color-yellow-base;
 
     &:first-of-type {
       margin-left: 3px;
     }
+    &:checked + label {
+      color: $color-yellow-base;
+    }
+  }
+
+  label {
+    color: $color-white-base;
+    font-size: var(--font-function-size);
+    font-family: $font-function;
+    font-weight: bold;
   }
 }
 
-@media (max-width: 510px) {
-  form::after {
-    clear: both;
-    content: "";
-    display: table;
+@media (max-width: $breakpoint) {
+  form {
+    max-height: 90px;
+
+    &::after {
+      clear: both;
+      content: "";
+      display: table;
+    }
+
+    input.searchbar {
+      height: 30px;
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
   }
+
   fieldset {
+    display: block;
     float: left;
     padding-left: 0px;
-  }
-  label {
-    display: block;
+
+    .radio-wrapper {
+      input[type="radio"] {
+        height: 1.2rem;
+        width: 1.2rem;
+      }
+    }
   }
 }
