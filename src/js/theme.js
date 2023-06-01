@@ -19,3 +19,8 @@ export function getMode(root) {
   });
 }
 
+export function setPreferredMode(root) {
+  if (localStorage.getItem("mode")) {
+    root.setAttribute("dark", null);
+  }
+}

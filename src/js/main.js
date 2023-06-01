@@ -5,6 +5,8 @@ const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
 const resultCardsDisplay = document.querySelector(".result-cards");
 
+theme.setPreferredMode(theme.root);
+
 function handleRadioBtns() {
   let searchBy;
   for (const radioBtn of radioBtns) {
@@ -158,7 +160,7 @@ function displayBreweryListInfo(
 }
 
 function changeResultPage(
-  event,
+  changeType,
   breweriesData,
   resultsPerPage,
   totalResults,
@@ -166,7 +168,7 @@ function changeResultPage(
 ) {
   const pagination = document.querySelector(".pagination");
   let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
-  if (event.target.matches("button.forward")) {
+  if (changeType === "forward") {
     if (resultPageNumber < numberOfSteps) {
       resultPageNumber++;
       displayBreweryListInfo(
@@ -176,7 +178,7 @@ function changeResultPage(
         resultPageNumber
       );
     }
-  } else if (event.target.matches("button.back")) {
+  } else if (changeType === "back") {
     if (resultPageNumber > 0) {
       resultPageNumber--;
       displayBreweryListInfo(
@@ -209,8 +211,11 @@ function navigateResultPages(
 ) {
   if (resultCardsDisplay) {
     resultCardsDisplay.addEventListener("click", (event) => {
+      const changeType = event.target.matches("button.forward")
+        ? "forward"
+        : "back";
       changeResultPage(
-        event,
+        changeType,
         breweriesData,
         resultsPerPage,
         totalResults,
@@ -221,24 +226,6 @@ function navigateResultPages(
 }
 
 theme.modeToggle(theme.root, theme.themeToggle);
-
-function removeMode(searchInput) {
-  if (searchInput) {
-    if (localStorage.getItem("mode")) {
-      localStorage.removeItem("mode");
-    }
-  }
-}
-
-removeMode(searchInput);
-
-// function determineMode(searchInput) {
-//   if (searchInput) {
-//     theme.getMode(theme.root);
-//   }
-// }
-
-// determineMode(searchInput);
 
 theme.getMode(theme.root);
 
