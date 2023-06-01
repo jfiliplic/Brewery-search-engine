@@ -34,13 +34,6 @@ form {
         visibility: hidden;
       }
     }
-
-    @media (max-width: $breakpoint) {
-      height: 30px;
-      width: 80%;
-      margin-left: 10%;
-      margin-right: 10%;
-    }
   }
 }
 
@@ -75,11 +68,6 @@ fieldset {
     &:checked + label {
       color: $color-yellow-base;
     }
-
-    @media (max-width: $breakpoint) {
-      height: 1.2rem;
-      width: 1.2rem;
-    }
   }
 
   label {
@@ -99,11 +87,25 @@ fieldset {
       content: "";
       display: table;
     }
+
+    input.searchbar {
+      height: 30px;
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
   }
 
   fieldset {
     display: block;
     float: left;
     padding-left: 0px;
+
+    .radio-wrapper {
+      input[type="radio"] {
+        height: 1.2rem;
+        width: 1.2rem;
+      }
+    }
   }
 }
