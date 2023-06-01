@@ -1,3 +1,5 @@
+import * as theme from "../js/theme.js";
+
 const baseEndpoint = "https://api.openbrewerydb.org/v1/breweries";
 const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
@@ -217,5 +219,27 @@ function navigateResultPages(
     });
   }
 }
+
+theme.modeToggle(theme.root, theme.themeToggle);
+
+function removeMode(searchInput) {
+  if (searchInput) {
+    if (localStorage.getItem("mode")) {
+      localStorage.removeItem("mode");
+    }
+  }
+}
+
+removeMode(searchInput);
+
+// function determineMode(searchInput) {
+//   if (searchInput) {
+//     theme.getMode(theme.root);
+//   }
+// }
+
+// determineMode(searchInput);
+
+theme.getMode(theme.root);
 
 searchWithEnter();

@@ -1,6 +1,8 @@
 //  --------------------------------------------------------------------------------
 //  Contains style that are specific for home page
 //  --------------------------------------------------------------------------------
+@use "../abstracts/variables" as *;
+
 form {
   max-width: 450px;
   margin: 3rem auto 1rem;
@@ -15,10 +17,17 @@ form {
     padding-right: 10px;
     border-radius: 15px;
     border: none;
-    font-size: 1.8rem;
+    color: $color-brown-base;
+    font-size: 1.5rem;
+    font-family: $font-function;
+    font-weight: bold;
+
+    &::placeholder {
+      color: rgba($color-brown-base, 0.5);
+    }
 
     &:focus {
-      outline: 2px solid rgba(255, 167, 0, 255);
+      outline: 2px solid $color-yellow-base;
 
       &::placeholder {
         visibility: hidden;
@@ -35,13 +44,19 @@ fieldset {
   border: none;
 
   label {
-    margin-right: 2rem;
+    margin-right: 1.5rem;
+    color: $color-white-base;
     font-size: 1.5rem;
-    color: white;
-  }
+    font-family: $font-function;
+    font-weight: bold;
 
-  label:last-of-type {
-    margin-right: 0;
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &:has(> input[type="radio"]:checked) {
+      color: $color-yellow-base;
+    }
   }
 
   input[type="radio"] {
@@ -50,19 +65,11 @@ fieldset {
     width: 1.5rem;
     margin-right: 0.5rem;
     vertical-align: text-bottom;
-    accent-color: rgba(255, 167, 0, 255);
+    accent-color: $color-yellow-base;
 
-    &:checked {
-      color: rgba(255, 167, 0, 255);
+    &:first-of-type {
+      margin-left: 3px;
     }
-
-    &:checked + label {
-      color: rgba(255, 167, 0, 255);
-    }
-  }
-
-  input[type="radio"]:first-of-type {
-    margin-left: 3px;
   }
 }
 

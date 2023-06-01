@@ -1,9 +1,15 @@
 import { searchByNameOrCity } from "./main.js";
 
+const rootResult = document.querySelector(":root");
+if (localStorage.getItem("mode")) {
+  rootResult.setAttribute("dark", null);
+}
+
 const singleResultCardDisplay = document.querySelector(".detailed-card");
 
 function parseBreweryName() {
   const breweryName = window.location.search.slice(9).replaceAll(/%20/g, " ");
+  console.log(breweryName);
   return breweryName;
 }
 
@@ -55,3 +61,6 @@ async function displaySingleBreweryInfo() {
 }
 
 displaySingleBreweryInfo();
+
+// ker zaradi prvega importa vleče not cel main.js, dela modeToggle tudi na result.html. Če uvažam še iz theme.js, ne dela več (ga najbrž ponovno toggla)
+// theme.modeToggle(theme.root, theme.themeToggle);

@@ -2,6 +2,8 @@
 //  Contains all style related to header of the site/application
 //  --------------------------------------------------------------------------------
 
+@use "../abstracts/variables" as *;
+
 .logo {
   display: flex;
   flex-direction: column;
@@ -14,9 +16,10 @@
   h1 {
     position: relative;
     top: -75px;
-    font-family: "Kavoon";
+    color: $color-gray-light;
+    font-family: $font-content;
     font-size: 4rem;
-    color: lightgray;
+    font-weight: bold;
     text-shadow: 1px 1px darkgray;
   }
 
@@ -25,7 +28,8 @@
     top: -110px;
     left: 0;
     text-align: center;
+    color: $color-yellow-base;
+    font-family: $font-function;
     font-size: 1.5rem;
-    color: rgba(255, 167, 0, 255);
   }
 }
