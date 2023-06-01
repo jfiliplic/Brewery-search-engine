@@ -5,6 +5,8 @@ const searchInput = document.querySelector(`input[name="searchbar"]`);
 const radioBtns = document.querySelectorAll(`input[name="keyword"]`);
 const resultCardsDisplay = document.querySelector(".result-cards");
 
+theme.setPreferredMode(theme.root);
+
 function handleRadioBtns() {
   let searchBy;
   for (const radioBtn of radioBtns) {
@@ -224,24 +226,6 @@ function navigateResultPages(
 }
 
 theme.modeToggle(theme.root, theme.themeToggle);
-
-function removeMode(searchInput) {
-  if (searchInput) {
-    if (localStorage.getItem("mode")) {
-      localStorage.removeItem("mode");
-    }
-  }
-}
-
-removeMode(searchInput);
-
-// function determineMode(searchInput) {
-//   if (searchInput) {
-//     theme.getMode(theme.root);
-//   }
-// }
-
-// determineMode(searchInput);
 
 theme.getMode(theme.root);
 
