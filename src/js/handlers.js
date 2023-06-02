@@ -7,9 +7,18 @@ import {
 
 import { radioBtns } from "./elements.js";
 
+export {
+  setPreferredMode,
+  modeToggle,
+  getMode,
+  searchWithEnter,
+  handleKeywords,
+  parseBreweryName,
+};
+
 // handlers from main.js
 
-export function handleRadioBtns(radioBtns) {
+function handleRadioBtns(radioBtns) {
   let searchBy;
   for (const radioBtn of radioBtns) {
     if (radioBtn.checked) {
@@ -19,7 +28,7 @@ export function handleRadioBtns(radioBtns) {
   }
 }
 
-export function searchWithEnter(searchInput) {
+function searchWithEnter(searchInput) {
   if (searchInput) {
     searchInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
@@ -29,7 +38,7 @@ export function searchWithEnter(searchInput) {
   }
 }
 
-export async function handleKeywords(query) {
+async function handleKeywords(query) {
   const keyword = handleRadioBtns(radioBtns);
   if (keyword === "country") {
     return searchByCountry(query);
@@ -38,7 +47,7 @@ export async function handleKeywords(query) {
   } else return searchByNameOrCity(query, keyword);
 }
 
-export function handleQuerySubmit(event, searchInput) {
+function handleQuerySubmit(event, searchInput) {
   event.preventDefault();
   const query = searchInput.value;
   if (!query) return;
@@ -47,21 +56,21 @@ export function handleQuerySubmit(event, searchInput) {
 
 // handlers from result.js
 
-export function parseBreweryName() {
+function parseBreweryName() {
   const breweryName = window.location.search.slice(9).replaceAll(/%20/g, " ");
   return breweryName;
 }
 
 // handlers from theme.js
 
-export function modeToggle(root, themeToggle) {
+function modeToggle(root, themeToggle) {
   themeToggle.addEventListener("click", (_) => {
     root.toggleAttribute("dark");
     root.dispatchEvent(new CustomEvent(`modeToggled`));
   });
 }
 
-export function getMode(root) {
+function getMode(root) {
   root.addEventListener("modeToggled", (_) => {
     const mode = root.hasAttribute("dark") ? "dark" : null;
     if (mode) {
@@ -72,7 +81,7 @@ export function getMode(root) {
   });
 }
 
-export function setPreferredMode(root) {
+function setPreferredMode(root) {
   if (localStorage.getItem("mode")) {
     root.setAttribute("dark", null);
   }

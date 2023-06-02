@@ -8,9 +8,18 @@ import {
 
 import { navigateResultPages, capitalizeFirstLetter } from "./utils.js";
 
+export {
+  fetchData,
+  searchByAny,
+  searchByCountry,
+  searchByNameOrCity,
+  displayBreweryListInfo,
+  displaySingleBreweryInfo,
+};
+
 // libraries from main.js
 
-export async function fetchData(query) {
+async function fetchData(query) {
   const breweriesData = await handleKeywords(query);
   const resultsPerPage = 10;
   const totalResults = breweriesData.length;
@@ -31,7 +40,7 @@ export async function fetchData(query) {
   }
 }
 
-export async function searchByCountry(query) {
+async function searchByCountry(query) {
   const capitalizedQuery = capitalizeFirstLetter(query);
   const responseCountry = await fetch(
     `${baseEndpoint}/search?query={${capitalizedQuery}}&per_page=200`
@@ -46,7 +55,7 @@ export async function searchByCountry(query) {
   return dataCountry;
 }
 
-export async function searchByAny(query) {
+async function searchByAny(query) {
   const responseAny = await fetch(
     `${baseEndpoint}/search?query={${query}}&per_page=200`
   );
@@ -54,7 +63,7 @@ export async function searchByAny(query) {
   return dataAny;
 }
 
-export async function searchByNameOrCity(query, keyword) {
+async function searchByNameOrCity(query, keyword) {
   const responseNameOrCity = await fetch(
     `${baseEndpoint}?by_${keyword}=${query}&per_page=200`
   );
@@ -62,7 +71,7 @@ export async function searchByNameOrCity(query, keyword) {
   return dataNameOrCity;
 }
 
-export function displayBreweryListInfo(
+function displayBreweryListInfo(
   breweriesData,
   resultsPerPage,
   totalResults,
@@ -125,7 +134,7 @@ export function displayBreweryListInfo(
 
 // libraries from result.js
 
-export function createSingleBreweryHtml(
+function createSingleBreweryHtml(
   name,
   type,
   longitude,
@@ -164,7 +173,7 @@ export function createSingleBreweryHtml(
   });
 }
 
-export async function displaySingleBreweryInfo() {
+async function displaySingleBreweryInfo() {
   const breweryName = parseBreweryName();
   const detailedBreweryData = await searchByNameOrCity(breweryName, "name");
   const { name, type, longitude, latitude, phone, website_url } =

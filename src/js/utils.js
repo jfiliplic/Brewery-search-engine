@@ -2,9 +2,11 @@ import { resultCardsDisplay } from "./elements.js";
 
 import { displayBreweryListInfo } from "./lib.js";
 
+export { capitalizeFirstLetter, navigateResultPages };
+
 // utils from main.js
 
-export function capitalizeFirstLetter(query) {
+function capitalizeFirstLetter(query) {
   const words = query.split(" ");
   // for (let i = 0; i < words.length; i++) {
   //   words[i] = words[i][0].toUpperCase() + keywords[i].substr(1);
@@ -17,7 +19,7 @@ export function capitalizeFirstLetter(query) {
     .join(" ");
 }
 
-export function changeResultPage(
+function changeResultPage(
   changeType,
   breweriesData,
   resultsPerPage,
@@ -49,7 +51,7 @@ export function changeResultPage(
   }
 }
 
-export function navigateResultPages(
+function navigateResultPages(
   breweriesData,
   resultsPerPage,
   totalResults,
