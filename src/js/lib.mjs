@@ -17,8 +17,6 @@ export {
   displaySingleBreweryInfo,
 };
 
-// libraries from main.js
-
 async function fetchData(query) {
   const breweriesData = await handleKeywords(query);
   const resultsPerPage = 10;
@@ -131,8 +129,6 @@ function displayBreweryListInfo(
   // varianta brez vmesnega koraka
   // resultCardsDisplay.innerHTML = htmlPagination + htmlResultCards.join(``);
 }
-
-// libraries from result.js
 
 function createSingleBreweryHtml(
   name,

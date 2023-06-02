@@ -4,8 +4,6 @@ import { displayBreweryListInfo } from "./lib.mjs";
 
 export { capitalizeFirstLetter, navigateResultPages };
 
-// utils from main.js
-
 function capitalizeFirstLetter(query) {
   const words = query.split(" ");
   // for (let i = 0; i < words.length; i++) {

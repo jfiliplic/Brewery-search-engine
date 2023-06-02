@@ -16,8 +16,6 @@ export {
   parseBreweryName,
 };
 
-// handlers from main.js
-
 function handleRadioBtns(radioBtns) {
   let searchBy;
   for (const radioBtn of radioBtns) {
@@ -54,14 +52,10 @@ function handleQuerySubmit(event, searchInput) {
   fetchData(query);
 }
 
-// handlers from result.js
-
 function parseBreweryName() {
   const breweryName = window.location.search.slice(9).replaceAll(/%20/g, " ");
   return breweryName;
 }
-
-// handlers from theme.js
 
 function modeToggle(root, themeToggle) {
   themeToggle.addEventListener("click", (_) => {
