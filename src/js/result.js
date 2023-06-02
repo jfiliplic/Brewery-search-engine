@@ -1,8 +1,8 @@
-import { setPreferredMode, modeToggle, getMode } from "./handlers.js";
+import { setPreferredMode, modeToggle, getMode } from "./handlers.mjs";
 
-import { root, themeToggle } from "./elements.js";
+import { root, themeToggle } from "./elements.mjs";
 
-import { displaySingleBreweryInfo } from "./lib.js";
+import { displaySingleBreweryInfo } from "./lib.mjs";
 
 setPreferredMode(root);
 

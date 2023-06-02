@@ -1,12 +1,12 @@
-import { handleKeywords, parseBreweryName } from "./handlers.js";
+import { handleKeywords, parseBreweryName } from "./handlers.mjs";
 
 import {
   baseEndpoint,
   resultCardsDisplay,
   singleResultCardDisplay,
-} from "./elements.js";
+} from "./elements.mjs";
 
-import { navigateResultPages, capitalizeFirstLetter } from "./utils.js";
+import { navigateResultPages, capitalizeFirstLetter } from "./utils.mjs";
 
 export {
   fetchData,

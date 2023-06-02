@@ -3,9 +3,9 @@ import {
   searchByAny,
   searchByCountry,
   searchByNameOrCity,
-} from "./lib.js";
+} from "./lib.mjs";
 
-import { radioBtns } from "./elements.js";
+import { radioBtns } from "./elements.mjs";
 
 export {
   setPreferredMode,

@@ -1,6 +1,6 @@
-import { resultCardsDisplay } from "./elements.js";
+import { resultCardsDisplay } from "./elements.mjs";
 
-import { displayBreweryListInfo } from "./lib.js";
+import { displayBreweryListInfo } from "./lib.mjs";
 
 export { capitalizeFirstLetter, navigateResultPages };
 

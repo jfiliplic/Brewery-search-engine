@@ -3,9 +3,9 @@ import {
   modeToggle,
   setPreferredMode,
   searchWithEnter,
-} from "./handlers.js";
+} from "./handlers.mjs";
 
-import { root, themeToggle, searchInput } from "./elements.js";
+import { root, themeToggle, searchInput } from "./elements.mjs";
 
 setPreferredMode(root);
 
