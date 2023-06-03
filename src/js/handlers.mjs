@@ -75,8 +75,9 @@ function getMode(root) {
   });
 }
 
-function setPreferredMode(root) {
+function setPreferredMode(root, themeToggle) {
   if (localStorage.getItem("mode")) {
     root.setAttribute("dark", null);
+    themeToggle.checked = true;
   }
 }

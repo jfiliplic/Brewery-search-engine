@@ -7,7 +7,7 @@ import {
 
 import { root, themeToggle, searchInput } from "./elements.mjs";
 
-setPreferredMode(root);
+setPreferredMode(root, themeToggle);
 
 modeToggle(root, themeToggle);
 
