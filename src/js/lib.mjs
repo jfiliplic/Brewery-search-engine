@@ -98,10 +98,10 @@ function displayBreweryListInfo(
       }>>></button>
       </label>
     </div>`;
-  resultCardsDisplay.innerHTML = htmlPagination;
+  // resultCardsDisplay.innerHTML = htmlPagination;
 
-  let htmlResultCards = [];
-  htmlResultCards = breweriesData
+  // let htmlResultCards = [];
+  const htmlResultCard = breweriesData
     .slice(
       resultsBehind,
       resultsCurrentAhead > resultsPerPage
@@ -118,14 +118,17 @@ function displayBreweryListInfo(
           </div>
         </a>`
     );
-  console.log(htmlResultCards);
-  
 
-  resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
+  resultCardsDisplay.innerHTML = htmlPagination + htmlResultCard.join(``);
+  
+  // htmlResultCards.push(htmlResultCard);
+  console.log(htmlResultCard);
+
+  // resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
 
   console.log(resultCardsDisplay.innerHTML);
 
-  // htmlResultCards.push(htmlResultCard);
+  // stara varianta
 
   // let htmlResultCards = [];
   // for (
@@ -147,7 +150,6 @@ function displayBreweryListInfo(
   //   );
   //   htmlResultCards.push(htmlResultCard);
   // }
-
   // resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
 
   // varianta brez vmesnega koraka
