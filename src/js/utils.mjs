@@ -2,20 +2,7 @@ import { resultCardsDisplay } from "./elements.mjs";
 
 import { displayBreweryListInfo } from "./lib.mjs";
 
-export { capitalizeFirstLetter, navigateResultPages };
-
-function capitalizeFirstLetter(query) {
-  const words = query.split(" ");
-  // for (let i = 0; i < words.length; i++) {
-  //   words[i] = words[i][0].toUpperCase() + keywords[i].substr(1);
-  // }
-  // return words.join(" ");
-  return words
-    .map((word) => {
-      return word[0].toUpperCase() + word.substring(1).toLowerCase();
-    })
-    .join(" ");
-}
+export { navigateResultPages };
 
 function changeResultPage(
   changeType,

@@ -6,7 +6,7 @@ import {
   singleResultCardDisplay,
 } from "./elements.mjs";
 
-import { navigateResultPages, capitalizeFirstLetter } from "./utils.mjs";
+import { navigateResultPages } from "./utils.mjs";
 
 export {
   fetchData,
@@ -39,14 +39,13 @@ async function fetchData(query) {
 }
 
 async function searchByCountry(query) {
-  const capitalizedQuery = capitalizeFirstLetter(query);
   const responseCountry = await fetch(
-    `${baseEndpoint}/search?query={${capitalizedQuery}}&per_page=200`
+    `${baseEndpoint}/search?query=${query}&per_page=200`
   );
   const unfilteredData = await responseCountry.json();
   const dataCountry = [];
   for (const breweryData of unfilteredData) {
-    if (breweryData.country === capitalizedQuery) {
+    if (breweryData.country.toLowerCase().includes(query.toLowerCase())) {
       dataCountry.push(breweryData);
     }
   }
