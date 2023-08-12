@@ -101,14 +101,14 @@ function displayBreweryListInfo(
   resultCardsDisplay.innerHTML = htmlPagination;
 
   let htmlResultCards = [];
-  for (
-    let i = 0 + resultsBehind;
-    resultsCurrentAhead > resultsPerPage
-      ? i < resultsPerPage + resultsBehind
-      : i < totalResults;
-    i++
-  ) {
-    const htmlResultCard = [breweriesData[i]].map(
+  htmlResultCards = breweriesData
+    .slice(
+      resultsBehind,
+      resultsCurrentAhead > resultsPerPage
+        ? resultsPerPage + resultsBehind
+        : totalResults
+    )
+    .map(
       ({ name, city, country }) =>
         `<a class="single-result-link" href="result.html?brewery=${name}" target="_blank">
           <div class="single-card">
@@ -118,12 +118,37 @@ function displayBreweryListInfo(
           </div>
         </a>`
     );
-    htmlResultCards.push(htmlResultCard);
-  }
-
-  //varianta 2: slice s korakom resultsPerPage
+  console.log(htmlResultCards);
+  
 
   resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
+
+  console.log(resultCardsDisplay.innerHTML);
+
+  // htmlResultCards.push(htmlResultCard);
+
+  // let htmlResultCards = [];
+  // for (
+  //   let i = 0 + resultsBehind;
+  //   resultsCurrentAhead > resultsPerPage
+  //     ? i < resultsPerPage + resultsBehind
+  //     : i < totalResults;
+  //   i++
+  // ) {
+  //   const htmlResultCard = [breweriesData[i]].map(
+  //     ({ name, city, country }) =>
+  //       `<a class="single-result-link" href="result.html?brewery=${name}" target="_blank">
+  //         <div class="single-card">
+  //           <h2>${name}<span>/</span></h2>
+  //           <h2>${city}<span>/</span></h2>
+  //           <h2>${country}</h2>
+  //         </div>
+  //       </a>`
+  //   );
+  //   htmlResultCards.push(htmlResultCard);
+  // }
+
+  // resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
 
   // varianta brez vmesnega koraka
   // resultCardsDisplay.innerHTML = htmlPagination + htmlResultCards.join(``);
