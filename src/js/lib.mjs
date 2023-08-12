@@ -24,9 +24,11 @@ async function fetchData(query) {
   const numberOfSteps = Math.floor(totalResults / resultsPerPage);
   if (!(totalResults > 0)) {
     resultCardsDisplay.innerHTML = `<h3 class="no-match">Sorry, no brewery matches your search!</h3>`;
+    console.log("test9a fetchData fetched data no results", breweriesData);
     return;
   } else {
     displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
+    console.log("test9b fetchData fetched data with results", breweriesData);
   }
   if (totalResults > resultsPerPage) {
     navigateResultPages(
@@ -35,8 +37,36 @@ async function fetchData(query) {
       totalResults,
       numberOfSteps
     );
+    console.log(
+      "test3c fetchData fetched data, with more than 10 results",
+      breweriesData
+    );
   }
 }
+
+// if (totalResults === 0) {
+//   resultCardsDisplay.innerHTML = `<h3 class="no-match">Sorry, no brewery matches your search!</h3>`;
+//   console.log("test9a fetchData fetched data, no results", breweriesData);
+//   return;
+// } else if (totalResults > 0 && totalResults > resultsPerPage) {
+//   displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
+//   console.log(
+//     "test9b fetchData fetched data, with results > 10",
+//     breweriesData
+//   );
+//   navigateResultPages(
+//     breweriesData,
+//     resultsPerPage,
+//     totalResults,
+//     numberOfSteps
+//   );
+// } else {
+//   displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
+//   console.log(
+//     "test9c fetchData fetched data, with results < 10",
+//     breweriesData
+//   );
+// }
 
 async function searchByCountry(query) {
   const responseCountry = await fetch(
@@ -49,6 +79,7 @@ async function searchByCountry(query) {
       dataCountry.push(breweryData);
     }
   }
+  console.log("test4a searchByCountry", dataCountry);
   return dataCountry;
 }
 
@@ -57,6 +88,7 @@ async function searchByAny(query) {
     `${baseEndpoint}/search?query={${query}}&per_page=200`
   );
   const dataAny = await responseAny.json();
+  console.log("test4b searchByAny", dataAny)
   return dataAny;
 }
 
@@ -65,6 +97,7 @@ async function searchByNameOrCity(query, keyword) {
     `${baseEndpoint}?by_${keyword}=${query}&per_page=200`
   );
   const dataNameOrCity = await responseNameOrCity.json();
+  console.log("test4c searchByNameOrCity", dataNameOrCity);
   return dataNameOrCity;
 }
 
@@ -120,13 +153,15 @@ function displayBreweryListInfo(
     );
 
   resultCardsDisplay.innerHTML = htmlPagination + htmlResultCard.join(``);
-  
+
   // htmlResultCards.push(htmlResultCard);
-  console.log(htmlResultCard);
+  console.log(
+    "test6 displayBreweryListInfo created html for pagination and result cards",
+    breweriesData,
+    resultCardsDisplay.innerHTML
+  );
 
   // resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
-
-  console.log(resultCardsDisplay.innerHTML);
 
   // stara varianta
 
