@@ -22,13 +22,11 @@ async function fetchData(query) {
   const resultsPerPage = 10;
   const totalResults = breweriesData.length;
   const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  if (!(totalResults > 0)) {
+  if (totalResults === 0) {
     resultCardsDisplay.innerHTML = `<h3 class="no-match">Sorry, no brewery matches your search!</h3>`;
-    console.log("test9a fetchData fetched data no results", breweriesData);
     return;
   } else {
     displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
-    console.log("test9b fetchData fetched data with results", breweriesData);
   }
   if (totalResults > resultsPerPage) {
     navigateResultPages(
@@ -37,36 +35,8 @@ async function fetchData(query) {
       totalResults,
       numberOfSteps
     );
-    console.log(
-      "test3c fetchData fetched data, with more than 10 results",
-      breweriesData
-    );
   }
 }
-
-// if (totalResults === 0) {
-//   resultCardsDisplay.innerHTML = `<h3 class="no-match">Sorry, no brewery matches your search!</h3>`;
-//   console.log("test9a fetchData fetched data, no results", breweriesData);
-//   return;
-// } else if (totalResults > 0 && totalResults > resultsPerPage) {
-//   displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
-//   console.log(
-//     "test9b fetchData fetched data, with results > 10",
-//     breweriesData
-//   );
-//   navigateResultPages(
-//     breweriesData,
-//     resultsPerPage,
-//     totalResults,
-//     numberOfSteps
-//   );
-// } else {
-//   displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
-//   console.log(
-//     "test9c fetchData fetched data, with results < 10",
-//     breweriesData
-//   );
-// }
 
 async function searchByCountry(query) {
   const responseCountry = await fetch(
@@ -79,7 +49,6 @@ async function searchByCountry(query) {
       dataCountry.push(breweryData);
     }
   }
-  console.log("test4a searchByCountry", dataCountry);
   return dataCountry;
 }
 
@@ -88,7 +57,6 @@ async function searchByAny(query) {
     `${baseEndpoint}/search?query={${query}}&per_page=200`
   );
   const dataAny = await responseAny.json();
-  console.log("test4b searchByAny", dataAny)
   return dataAny;
 }
 
@@ -97,7 +65,6 @@ async function searchByNameOrCity(query, keyword) {
     `${baseEndpoint}?by_${keyword}=${query}&per_page=200`
   );
   const dataNameOrCity = await responseNameOrCity.json();
-  console.log("test4c searchByNameOrCity", dataNameOrCity);
   return dataNameOrCity;
 }
 
@@ -131,9 +98,7 @@ function displayBreweryListInfo(
       }>>></button>
       </label>
     </div>`;
-  // resultCardsDisplay.innerHTML = htmlPagination;
 
-  // let htmlResultCards = [];
   const htmlResultCard = breweriesData
     .slice(
       resultsBehind,
@@ -153,42 +118,6 @@ function displayBreweryListInfo(
     );
 
   resultCardsDisplay.innerHTML = htmlPagination + htmlResultCard.join(``);
-
-  // htmlResultCards.push(htmlResultCard);
-  console.log(
-    "test6 displayBreweryListInfo created html for pagination and result cards",
-    breweriesData,
-    resultCardsDisplay.innerHTML
-  );
-
-  // resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
-
-  // stara varianta
-
-  // let htmlResultCards = [];
-  // for (
-  //   let i = 0 + resultsBehind;
-  //   resultsCurrentAhead > resultsPerPage
-  //     ? i < resultsPerPage + resultsBehind
-  //     : i < totalResults;
-  //   i++
-  // ) {
-  //   const htmlResultCard = [breweriesData[i]].map(
-  //     ({ name, city, country }) =>
-  //       `<a class="single-result-link" href="result.html?brewery=${name}" target="_blank">
-  //         <div class="single-card">
-  //           <h2>${name}<span>/</span></h2>
-  //           <h2>${city}<span>/</span></h2>
-  //           <h2>${country}</h2>
-  //         </div>
-  //       </a>`
-  //   );
-  //   htmlResultCards.push(htmlResultCard);
-  // }
-  // resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
-
-  // varianta brez vmesnega koraka
-  // resultCardsDisplay.innerHTML = htmlPagination + htmlResultCards.join(``);
 }
 
 function createSingleBreweryHtml(

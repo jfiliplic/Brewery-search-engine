@@ -22,11 +22,6 @@ function changeResultPage(
         totalResults,
         resultPageNumber
       );
-      console.log(
-        "test8a changeResultPage updates result page number when clicking forward",
-        resultPageNumber,
-        breweriesData
-      );
     }
   } else if (changeType === "back") {
     if (resultPageNumber > 0) {
@@ -36,11 +31,6 @@ function changeResultPage(
         resultsPerPage,
         totalResults,
         resultPageNumber
-      );
-      console.log(
-        "test8b changeResultPage updates result page number when clicking back",
-        resultPageNumber,
-        breweriesData
       );
     }
   }
@@ -63,11 +53,6 @@ function navigateResultPages(
         resultsPerPage,
         totalResults,
         numberOfSteps
-      );
-      console.log(
-        "test7 navigateResultPages assign values to forward/back button",
-        breweriesData,
-        changeType
       );
     });
   }
