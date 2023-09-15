@@ -27,18 +27,15 @@ function handleRadioBtns(radioBtns) {
 }
 
 function searchWithEnter(searchInput) {
-  if (searchInput) {
-    searchInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        handleQuerySubmit(event, searchInput);
-      }
-    });
-  }
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      handleQuerySubmit(event, searchInput);
+    }
+  });
 }
 
 async function handleKeywords(query) {
   const keyword = handleRadioBtns(radioBtns);
-  console.log("test4 handleKeywords call search function by keyword", keyword);
   if (keyword === "country") {
     return searchByCountry(query);
   } else if (keyword === "any") {
