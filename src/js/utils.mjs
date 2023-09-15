@@ -1,5 +1,3 @@
-import { resultCardsDisplay } from "./elements.mjs";
-
 import { displayBreweryListInfo } from "./lib.mjs";
 
 export { navigateResultPages };
@@ -9,9 +7,9 @@ function changeResultPage(
   breweriesData,
   resultsPerPage,
   totalResults,
-  numberOfSteps
+  pagination
 ) {
-  const pagination = document.querySelector(".pagination");
+  const numberOfSteps = Math.floor(totalResults / resultsPerPage);
   let resultPageNumber = parseInt(pagination.dataset.resultpagenumber);
   if (changeType === "forward") {
     if (resultPageNumber < numberOfSteps) {
@@ -36,24 +34,18 @@ function changeResultPage(
   }
 }
 
-function navigateResultPages(
-  breweriesData,
-  resultsPerPage,
-  totalResults,
-  numberOfSteps
-) {
-  if (resultCardsDisplay) {
-    resultCardsDisplay.addEventListener("click", (event) => {
-      const changeType = event.target.matches("button.forward")
-        ? "forward"
-        : "back";
-      changeResultPage(
-        changeType,
-        breweriesData,
-        resultsPerPage,
-        totalResults,
-        numberOfSteps
-      );
-    });
-  }
+function navigateResultPages(breweriesData, resultsPerPage, totalResults) {
+  const pagination = document.querySelector(".pagination");
+  pagination.addEventListener("click", (event) => {
+    const changeType = event.target.matches("button.forward")
+      ? "forward"
+      : "back";
+    changeResultPage(
+      changeType,
+      breweriesData,
+      resultsPerPage,
+      totalResults,
+      pagination
+    );
+  });
 }

@@ -21,20 +21,12 @@ async function fetchData(query) {
   const breweriesData = await handleKeywords(query);
   const resultsPerPage = 10;
   const totalResults = breweriesData.length;
-  const numberOfSteps = Math.floor(totalResults / resultsPerPage);
+
   if (totalResults === 0) {
     resultCardsDisplay.innerHTML = `<h3 class="no-match">Sorry, no brewery matches your search!</h3>`;
     return;
   } else {
     displayBreweryListInfo(breweriesData, resultsPerPage, totalResults);
-  }
-  if (totalResults > resultsPerPage) {
-    navigateResultPages(
-      breweriesData,
-      resultsPerPage,
-      totalResults,
-      numberOfSteps
-    );
   }
 }
 
@@ -118,6 +110,12 @@ function displayBreweryListInfo(
     );
 
   resultCardsDisplay.innerHTML = htmlPagination + htmlResultCard.join(``);
+
+  resultsPerPage = 10;
+
+  if (totalResults > resultsPerPage) {
+    navigateResultPages(breweriesData, resultsPerPage, totalResults);
+  }
 }
 
 function createSingleBreweryHtml(
