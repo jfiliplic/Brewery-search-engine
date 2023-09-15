@@ -38,11 +38,14 @@ function searchWithEnter(searchInput) {
 
 async function handleKeywords(query) {
   const keyword = handleRadioBtns(radioBtns);
+  console.log("test4 handleKeywords call search function by keyword", keyword);
   if (keyword === "country") {
     return searchByCountry(query);
   } else if (keyword === "any") {
     return searchByAny(query);
-  } else return searchByNameOrCity(query, keyword);
+  } else {
+    return searchByNameOrCity(query, keyword);
+  }
 }
 
 function handleQuerySubmit(event, searchInput) {

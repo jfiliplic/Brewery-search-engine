@@ -22,7 +22,7 @@ async function fetchData(query) {
   const resultsPerPage = 10;
   const totalResults = breweriesData.length;
   const numberOfSteps = Math.floor(totalResults / resultsPerPage);
-  if (!(totalResults > 0)) {
+  if (totalResults === 0) {
     resultCardsDisplay.innerHTML = `<h3 class="no-match">Sorry, no brewery matches your search!</h3>`;
     return;
   } else {
@@ -98,17 +98,15 @@ function displayBreweryListInfo(
       }>>></button>
       </label>
     </div>`;
-  resultCardsDisplay.innerHTML = htmlPagination;
 
-  let htmlResultCards = [];
-  for (
-    let i = 0 + resultsBehind;
-    resultsCurrentAhead > resultsPerPage
-      ? i < resultsPerPage + resultsBehind
-      : i < totalResults;
-    i++
-  ) {
-    const htmlResultCard = [breweriesData[i]].map(
+  const htmlResultCard = breweriesData
+    .slice(
+      resultsBehind,
+      resultsCurrentAhead > resultsPerPage
+        ? resultsPerPage + resultsBehind
+        : totalResults
+    )
+    .map(
       ({ name, city, country }) =>
         `<a class="single-result-link" href="result.html?brewery=${name}" target="_blank">
           <div class="single-card">
@@ -118,15 +116,8 @@ function displayBreweryListInfo(
           </div>
         </a>`
     );
-    htmlResultCards.push(htmlResultCard);
-  }
 
-  //varianta 2: slice s korakom resultsPerPage
-
-  resultCardsDisplay.insertAdjacentHTML("beforeend", htmlResultCards.join(``));
-
-  // varianta brez vmesnega koraka
-  // resultCardsDisplay.innerHTML = htmlPagination + htmlResultCards.join(``);
+  resultCardsDisplay.innerHTML = htmlPagination + htmlResultCard.join(``);
 }
 
 function createSingleBreweryHtml(
